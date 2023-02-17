@@ -8,38 +8,36 @@
 import UIKit
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
-    
     var window: UIWindow?
-    
-    
+
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
+
         guard let windowScene = (scene as? UIWindowScene) else { return }
-        
-        //добавьте UITabBarController
-        let tabBarController = UITabBarController()
-        
+
         let feedViewController = FeedViewController()
-        let profileViewController = ProfileViewController()
-        
         let feedNavigationController = UINavigationController(rootViewController: feedViewController)
+        feedNavigationController.tabBarItem = UITabBarItem(title: "Feed", image: UIImage(systemName: "house"), selectedImage: UIImage(systemName: "house.fill"))
+        
+        
+        let profileViewController = ProfileViewController()
         let profileNavigationController = UINavigationController(rootViewController: profileViewController)
+        profileNavigationController.tabBarItem = UITabBarItem(title: "Profile", image: UIImage(systemName: "person"), selectedImage: UIImage(systemName: "person.fill"))
         
-        //Измените Tab Bar Item у добавленных контроллеров, добавьте заголовок и картинку
-        feedNavigationController.tabBarItem = UITabBarItem(title: "Лента", image: UIImage(systemName: "house"), selectedImage: UIImage(systemName: "hoyse.fill"))
+        let postViewController = PostViewController()
+        let postNavigationController = UINavigationController(rootViewController: postViewController)
+        postNavigationController.tabBarItem = UITabBarItem(title: "Post", image: UIImage(systemName: "message.fill"), selectedImage: UIImage(systemName: "message.fill"))
 
-        profileNavigationController.tabBarItem = UITabBarItem(title: "Профиль", image: UIImage(systemName: "person"), selectedImage: UIImage(systemName: "person.fill"))
+        let myPost = Post(title: "New post")
+        postViewController.post = myPost
 
-        //Создайте FeedViewController и ProfileViewController и добавьте их как root view controller у навигационных контроллеров.
+        let tabBarController = UITabBarController()
+        tabBarController.viewControllers = [feedNavigationController, profileNavigationController, postNavigationController]
+      
 
-        tabBarController.viewControllers = [feedNavigationController, profileNavigationController]
-        
-        
-        
+
         let window = UIWindow(windowScene: windowScene)
         window.rootViewController = tabBarController
-        
         self.window = window
         window.makeKeyAndVisible()
-        
     }
 }
