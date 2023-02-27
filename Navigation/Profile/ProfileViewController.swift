@@ -8,23 +8,31 @@
 import UIKit
 
 class ProfileViewController: UIViewController {
+    
+    //Создайте экземпляр класса ProfileHeaderView
+    let profileHeaderView = ProfileHeaderView()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //добавьте profileHeaderView в качестве subview
+        self.view.addSubview(profileHeaderView)
+        
+        // Изменение цвета
         self.view.backgroundColor = UIColor.lightGray
-        // Do any additional setup after loading the view.
+        
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    //в методе viewWillLayoutSubviews() задайте ему frame, равный frame корневого view
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        
+        let headerViewFrame = CGRect(x: 0, y: 0, width: self.view.bounds.width, height: self.view.bounds.height)
+        
+        profileHeaderView.frame = headerViewFrame
     }
-    */
-
 }
+    
+
+
+
