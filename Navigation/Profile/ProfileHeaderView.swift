@@ -23,6 +23,15 @@ class ProfileHeaderView: UIView {
         return view
     }()
     
+    private let userName: UILabel = {
+        let view = UILabel()
+        view.text = "Playful Cat"
+        view.textColor = .black
+        view.font = UIFont.systemFont(ofSize: 18, weight: .bold)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupUI()
@@ -34,12 +43,18 @@ class ProfileHeaderView: UIView {
     
     func setupUI() {
         self.addSubview(imageView)
+        self.addSubview(userName)
         
         NSLayoutConstraint.activate([
             imageView.topAnchor.constraint(equalTo: topAnchor, constant: 16),
             imageView.leftAnchor.constraint(equalTo: leftAnchor, constant: 16),
             imageView.heightAnchor.constraint(equalToConstant: 100),
             imageView.widthAnchor.constraint(equalToConstant: 100)
+        ])
+        
+        NSLayoutConstraint.activate([
+            userName.topAnchor.constraint(equalTo: topAnchor, constant: 27),
+            userName.centerXAnchor.constraint(equalTo:centerXAnchor)
         ])
     }
 }
