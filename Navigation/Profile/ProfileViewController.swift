@@ -9,28 +9,29 @@ import UIKit
 
 class ProfileViewController: UIViewController {
     
-    //Создайте экземпляр класса ProfileHeaderView
-    let profileHeaderView = ProfileHeaderView()
+    let profileHeaderView: ProfileHeaderView = {
+        let profileHeaderView = ProfileHeaderView()
+        profileHeaderView.translatesAutoresizingMaskIntoConstraints = false
+        return profileHeaderView
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        //добавьте profileHeaderView в качестве subview
-        self.view.addSubview(profileHeaderView)
-        
-        // Изменение цвета
-        self.view.backgroundColor = UIColor.lightGray
+        self.view.backgroundColor = .lightGray
         
     }
     
-    //в методе viewWillLayoutSubviews() задайте ему frame, равный frame корневого view
     override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
+        view.addSubview(profileHeaderView)
         
-        let headerViewFrame = CGRect(x: 0, y: 0, width: self.view.bounds.width, height: self.view.bounds.height)
-        
-        profileHeaderView.frame = headerViewFrame
+        NSLayoutConstraint.activate([
+            profileHeaderView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            profileHeaderView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            profileHeaderView.leftAnchor.constraint(equalTo: view.leftAnchor),
+            profileHeaderView.rightAnchor.constraint(equalTo: view.rightAnchor)
+        ])
     }
+    
 }
     
 

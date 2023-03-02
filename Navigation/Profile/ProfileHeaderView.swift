@@ -7,6 +7,40 @@
 
 import UIKit
 
+
 class ProfileHeaderView: UIView {
     
+    private let imageView: UIImageView = {
+        let view = UIImageView()
+        let profilePhoto = UIImage(named: "cat")
+        view.image = profilePhoto
+        view.contentMode = .scaleAspectFill
+        view.layer.cornerRadius = 50
+        view.layer.masksToBounds = true
+        view.layer.borderWidth = 3
+        view.layer.borderColor = UIColor.white.cgColor
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setupUI()
+    }
+    
+    required  init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    func setupUI() {
+        self.addSubview(imageView)
+        
+        NSLayoutConstraint.activate([
+            imageView.topAnchor.constraint(equalTo: topAnchor, constant: 16),
+            imageView.leftAnchor.constraint(equalTo: leftAnchor, constant: 16),
+            imageView.heightAnchor.constraint(equalToConstant: 100),
+            imageView.widthAnchor.constraint(equalToConstant: 100)
+        ])
+    }
 }
+
