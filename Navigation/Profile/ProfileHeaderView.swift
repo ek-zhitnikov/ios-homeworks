@@ -97,6 +97,13 @@ class ProfileHeaderView: UIView {
             userStatus.leadingAnchor.constraint(equalTo: userName.leadingAnchor),
             userStatus.rightAnchor.constraint(equalTo: rightAnchor, constant: -16)
         ])
+        
+        statusButton.addTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
+    }
+    
+    @objc func buttonPressed() {
+        guard let userStatus = userStatus.text else { return }
+        print("\(userStatus)")
     }
 }
 
