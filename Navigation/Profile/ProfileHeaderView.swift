@@ -77,22 +77,16 @@ class ProfileHeaderView: UIView {
             imageView.topAnchor.constraint(equalTo: topAnchor, constant: 16),
             imageView.leftAnchor.constraint(equalTo: leftAnchor, constant: 16),
             imageView.heightAnchor.constraint(equalToConstant: 100),
-            imageView.widthAnchor.constraint(equalToConstant: 100)
-        ])
-        
-        NSLayoutConstraint.activate([
+            imageView.widthAnchor.constraint(equalToConstant: 100),
+       
             userName.topAnchor.constraint(equalTo: topAnchor, constant: 27),
-            userName.leftAnchor.constraint(equalTo: imageView.rightAnchor, constant: 16)
-        ])
-        
-        NSLayoutConstraint.activate([
+            userName.leftAnchor.constraint(equalTo: imageView.rightAnchor, constant: 16),
+       
             statusButton.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 16),
             statusButton.leftAnchor.constraint(equalTo:leftAnchor, constant: 16),
             statusButton.rightAnchor.constraint(equalTo:rightAnchor, constant: -16),
-            statusButton.heightAnchor.constraint(equalToConstant: 50)
-        ])
-        
-        NSLayoutConstraint.activate([
+            statusButton.heightAnchor.constraint(equalToConstant: 50),
+       
             userStatus.bottomAnchor.constraint(equalTo: statusButton.topAnchor, constant: -34),
             userStatus.leadingAnchor.constraint(equalTo: userName.leadingAnchor),
             userStatus.rightAnchor.constraint(equalTo: rightAnchor, constant: -16)

@@ -18,10 +18,11 @@ class ProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .lightGray
+        setupUI()
+        
         
     }
-    
-    override func viewWillLayoutSubviews() {
+    func setupUI(){
         view.addSubview(profileHeaderView)
         
         NSLayoutConstraint.activate([
@@ -30,8 +31,8 @@ class ProfileViewController: UIViewController {
             profileHeaderView.leftAnchor.constraint(equalTo: view.leftAnchor),
             profileHeaderView.rightAnchor.constraint(equalTo: view.rightAnchor)
         ])
+        
     }
-    
 }
     
 
