@@ -10,7 +10,7 @@ import UIKit
 
 class ProfileHeaderView: UIView {
     
-    private let imageView: UIImageView = {
+    private let avatarImageView: UIImageView = {
         let view = UIImageView()
         let profilePhoto = UIImage(named: "cat")
         view.image = profilePhoto
@@ -23,7 +23,7 @@ class ProfileHeaderView: UIView {
         return view
     }()
     
-    private let userName: UILabel = {
+    private let fullNameLabel: UILabel = {
         let view = UILabel()
         view.text = "Playful Cat"
         view.textColor = .black
@@ -32,7 +32,7 @@ class ProfileHeaderView: UIView {
         return view
     }()
     
-    private let userStatus: UILabel = {
+    private let statusLabel: UILabel = {
         let view = UILabel()
         view.text = "Do you think I'm playing games with you?"
         view.numberOfLines = 0
@@ -43,7 +43,7 @@ class ProfileHeaderView: UIView {
         return view
     }()
     
-    private let statusButton: UIButton = {
+    private let setStatusButton: UIButton = {
         let view = UIButton()
         view.backgroundColor = .systemBlue
         view.setTitle("Show status", for: .normal)
@@ -68,35 +68,35 @@ class ProfileHeaderView: UIView {
     }
     
     func setupUI() {
-        self.addSubview(imageView)
-        self.addSubview(userName)
-        self.addSubview(statusButton)
-        self.addSubview(userStatus)
+        self.addSubview(avatarImageView)
+        self.addSubview(fullNameLabel)
+        self.addSubview(setStatusButton)
+        self.addSubview(statusLabel)
         
         NSLayoutConstraint.activate([
-            imageView.topAnchor.constraint(equalTo: topAnchor, constant: 16),
-            imageView.leftAnchor.constraint(equalTo: leftAnchor, constant: 16),
-            imageView.heightAnchor.constraint(equalToConstant: 100),
-            imageView.widthAnchor.constraint(equalToConstant: 100),
+            avatarImageView.topAnchor.constraint(equalTo: topAnchor, constant: 16),
+            avatarImageView.leftAnchor.constraint(equalTo: leftAnchor, constant: 16),
+            avatarImageView.heightAnchor.constraint(equalToConstant: 100),
+            avatarImageView.widthAnchor.constraint(equalToConstant: 100),
        
-            userName.topAnchor.constraint(equalTo: topAnchor, constant: 27),
-            userName.leftAnchor.constraint(equalTo: imageView.rightAnchor, constant: 16),
+            fullNameLabel.topAnchor.constraint(equalTo: topAnchor, constant: 27),
+            fullNameLabel.leftAnchor.constraint(equalTo: avatarImageView.rightAnchor, constant: 16),
        
-            statusButton.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 16),
-            statusButton.leftAnchor.constraint(equalTo:leftAnchor, constant: 16),
-            statusButton.rightAnchor.constraint(equalTo:rightAnchor, constant: -16),
-            statusButton.heightAnchor.constraint(equalToConstant: 50),
+            setStatusButton.topAnchor.constraint(equalTo: avatarImageView.bottomAnchor, constant: 16),
+            setStatusButton.leftAnchor.constraint(equalTo:leftAnchor, constant: 16),
+            setStatusButton.rightAnchor.constraint(equalTo:rightAnchor, constant: -16),
+            setStatusButton.heightAnchor.constraint(equalToConstant: 50),
        
-            userStatus.bottomAnchor.constraint(equalTo: statusButton.topAnchor, constant: -34),
-            userStatus.leadingAnchor.constraint(equalTo: userName.leadingAnchor),
-            userStatus.rightAnchor.constraint(equalTo: rightAnchor, constant: -16)
+            statusLabel.bottomAnchor.constraint(equalTo: setStatusButton.topAnchor, constant: -34),
+            statusLabel.leadingAnchor.constraint(equalTo: fullNameLabel.leadingAnchor),
+            statusLabel.rightAnchor.constraint(equalTo: rightAnchor, constant: -16)
         ])
         
-        statusButton.addTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
+        setStatusButton.addTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
     }
     
     @objc func buttonPressed() {
-        guard let userStatus = userStatus.text else { return }
+        guard let userStatus = statusLabel.text else { return }
         print("\(userStatus)")
     }
 }
