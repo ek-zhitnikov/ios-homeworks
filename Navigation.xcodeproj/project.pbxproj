@@ -7,8 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		446B26C329ACDE800089C298 /* ProfileHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446B26C229ACDE800089C298 /* ProfileHeaderView.swift */; };
+		446B26C529ACDEDA0089C298 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446B26C429ACDEDA0089C298 /* ProfileViewController.swift */; };
 		44D1D482299F8F8C00D1BDC0 /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44D1D481299F8F8C00D1BDC0 /* FeedViewController.swift */; };
-		44D1D484299F8FB300D1BDC0 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44D1D483299F8FB300D1BDC0 /* ProfileViewController.swift */; };
 		44D1D486299F960600D1BDC0 /* PostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44D1D485299F960600D1BDC0 /* PostViewController.swift */; };
 		44D1D488299FB80300D1BDC0 /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44D1D487299FB80300D1BDC0 /* InfoViewController.swift */; };
 		44D1D48A299FB95500D1BDC0 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44D1D489299FB95500D1BDC0 /* Model.swift */; };
@@ -20,8 +21,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		446B26C229ACDE800089C298 /* ProfileHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderView.swift; sourceTree = "<group>"; };
+		446B26C429ACDEDA0089C298 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		44D1D481299F8F8C00D1BDC0 /* FeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewController.swift; sourceTree = "<group>"; };
-		44D1D483299F8FB300D1BDC0 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		44D1D485299F960600D1BDC0 /* PostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewController.swift; sourceTree = "<group>"; };
 		44D1D487299FB80300D1BDC0 /* InfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
 		44D1D489299FB95500D1BDC0 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
@@ -45,6 +47,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		446B26BF29ACDE200089C298 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				446B26C229ACDE800089C298 /* ProfileHeaderView.swift */,
+				446B26C429ACDEDA0089C298 /* ProfileViewController.swift */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
 		44DD6EAB299F6A16009624B6 = {
 			isa = PBXGroup;
 			children = (
@@ -64,6 +75,7 @@
 		44DD6EB6299F6A16009624B6 /* Navigation */ = {
 			isa = PBXGroup;
 			children = (
+				446B26BF29ACDE200089C298 /* Profile */,
 				44DD6EB7299F6A16009624B6 /* AppDelegate.swift */,
 				44DD6EB9299F6A16009624B6 /* SceneDelegate.swift */,
 				44DD6EBB299F6A16009624B6 /* ViewController.swift */,
@@ -71,7 +83,6 @@
 				44DD6EC2299F6A18009624B6 /* LaunchScreen.storyboard */,
 				44DD6EC5299F6A18009624B6 /* Info.plist */,
 				44D1D481299F8F8C00D1BDC0 /* FeedViewController.swift */,
-				44D1D483299F8FB300D1BDC0 /* ProfileViewController.swift */,
 				44D1D485299F960600D1BDC0 /* PostViewController.swift */,
 				44D1D487299FB80300D1BDC0 /* InfoViewController.swift */,
 				44D1D489299FB95500D1BDC0 /* Model.swift */,
@@ -151,9 +162,10 @@
 			files = (
 				44D1D486299F960600D1BDC0 /* PostViewController.swift in Sources */,
 				44DD6EBC299F6A16009624B6 /* ViewController.swift in Sources */,
+				446B26C529ACDEDA0089C298 /* ProfileViewController.swift in Sources */,
 				44DD6EB8299F6A16009624B6 /* AppDelegate.swift in Sources */,
 				44D1D488299FB80300D1BDC0 /* InfoViewController.swift in Sources */,
-				44D1D484299F8FB300D1BDC0 /* ProfileViewController.swift in Sources */,
+				446B26C329ACDE800089C298 /* ProfileHeaderView.swift in Sources */,
 				44D1D482299F8F8C00D1BDC0 /* FeedViewController.swift in Sources */,
 				44DD6EBA299F6A16009624B6 /* SceneDelegate.swift in Sources */,
 				44D1D48A299FB95500D1BDC0 /* Model.swift in Sources */,
