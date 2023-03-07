@@ -4,13 +4,36 @@ import UIKit
 class FeedViewController: UIViewController {
     private let secondPost = Post(title: "PostViewController")
 
-    private lazy var button: UIButton = {
+    private lazy var firstButton: UIButton = {
         let button = UIButton()
+        button.backgroundColor = .red
         button.setTitle("Go to the post", for: .normal)
-        button.setTitleColor(.systemYellow, for: .normal)
+        button.setTitleColor(.white, for: .normal)
         button.addTarget(self, action: #selector(tapButton), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
+    }()
+    
+    private lazy var secondButton: UIButton = {
+        let button = UIButton()
+        button.backgroundColor = .blue
+        button.setTitle("Go to the post", for: .normal)
+        button.setTitleColor(.white, for: .normal)
+        button.addTarget(self, action: #selector(tapButton), for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+    
+    private lazy var stackView: UIStackView = { [unowned self] in
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+
+        stackView.axis = .vertical
+        stackView.spacing = 10
+        
+        stackView.addArrangedSubview(self.firstButton)
+        stackView.addArrangedSubview(self.secondButton)
+        return stackView
     }()
 
     override func viewDidLoad() {
@@ -20,13 +43,13 @@ class FeedViewController: UIViewController {
     }
 
     private func setupViews() {
-        view.addSubview(button)
+        view.addSubview(stackView)
     }
 
     private func setupConstraints() {
         NSLayoutConstraint.activate([
-            button.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            button.centerYAnchor.constraint(equalTo: view.centerYAnchor)]) }
+            stackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            stackView.centerYAnchor.constraint(equalTo: view.centerYAnchor)]) }
 
     @objc private func tapButton() {
         let postVC = PostViewController()
