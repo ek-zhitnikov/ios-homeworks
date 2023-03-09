@@ -68,6 +68,7 @@ class ProfileHeaderView: UIView {
     }
     
     func setupUI() {
+        self.backgroundColor = .orange
         self.addSubview(avatarImageView)
         self.addSubview(fullNameLabel)
         self.addSubview(setStatusButton)
@@ -89,7 +90,7 @@ class ProfileHeaderView: UIView {
        
             statusLabel.bottomAnchor.constraint(equalTo: setStatusButton.topAnchor, constant: -34),
             statusLabel.leadingAnchor.constraint(equalTo: fullNameLabel.leadingAnchor),
-            statusLabel.rightAnchor.constraint(equalTo: rightAnchor, constant: -16)
+            statusLabel.rightAnchor.constraint(equalTo: rightAnchor, constant: -16),
         ])
         
         setStatusButton.addTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
