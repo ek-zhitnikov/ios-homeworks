@@ -8,6 +8,8 @@
 import UIKit
 
 class ProfileViewController: UIViewController {
+
+    
     
     private let tableView: UITableView = {
         let tableView = UITableView()
@@ -15,11 +17,17 @@ class ProfileViewController: UIViewController {
         return tableView
     }()
     
+    func setupTable() {
+        tableView.delegate = self
+        tableView.dataSource = self
+    }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(tableView)
         setupUI()
+        setupTable()
     }
     
     func setupUI() {
@@ -34,7 +42,15 @@ class ProfileViewController: UIViewController {
         
     }
 }
+extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
     
-
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        <#code#>
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        <#code#>
+    }
+}
 
 
