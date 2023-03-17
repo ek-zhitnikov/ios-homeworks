@@ -9,7 +9,8 @@ import UIKit
 
 class ProfileViewController: UIViewController {
 
-    
+    private var dataSource = posts
+    let identifire = "MyCell"
     
     private let tableView: UITableView = {
         let tableView = UITableView()
@@ -18,6 +19,7 @@ class ProfileViewController: UIViewController {
     }()
     
     func setupTable() {
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: identifire)
         tableView.delegate = self
         tableView.dataSource = self
     }
@@ -42,15 +44,35 @@ class ProfileViewController: UIViewController {
         
     }
 }
-extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
+extension ProfileViewController: UITableViewDelegate{
+
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        if section == 0 {
+            let headerView = ProfileHeaderView()
+            return headerView
+        } else {
+            return nil
+        }
+    }
+}
+
+extension ProfileViewController: UITableViewDataSource {
+   
+
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        <#code#>
+        return dataSource.count
+
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        <#code#>
+        let cell = tableView.dequeueReusableCell(withIdentifier: identifire, for: indexPath)
+        let post = dataSource[indexPath.row]
+        return cell
     }
+    
+
+    
 }
 
 

@@ -68,7 +68,6 @@ class ProfileHeaderView: UIView {
     }
     
     func setupUI() {
-        self.backgroundColor = .orange
         self.addSubview(avatarImageView)
         self.addSubview(fullNameLabel)
         self.addSubview(setStatusButton)
