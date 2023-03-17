@@ -25,15 +25,23 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let profileNavigationController = UINavigationController(rootViewController: profileViewController)
         profileNavigationController.tabBarItem = UITabBarItem(title: "Profile", image: UIImage(systemName: "person"), selectedImage: UIImage(systemName: "person.fill"))
         
+        
+        let logInViewController = LogInViewController()
+        logInViewController.title = "Profile"
+        let logInNavigationController = UINavigationController(rootViewController: logInViewController)
+        logInNavigationController.tabBarItem = UITabBarItem(title: "Profile", image: UIImage(systemName: "person"), selectedImage: UIImage(systemName: "person.fill"))
+        
+        
         let postViewController = PostViewController()
         let postNavigationController = UINavigationController(rootViewController: postViewController)
         postNavigationController.tabBarItem = UITabBarItem(title: "Post", image: UIImage(systemName: "message.fill"), selectedImage: UIImage(systemName: "message.fill"))
+        
 
         let myPost = Post(title: "New post")
         postViewController.post = myPost
 
         let tabBarController = UITabBarController()
-        tabBarController.viewControllers = [feedNavigationController, profileNavigationController]
+        tabBarController.viewControllers = [feedNavigationController, logInNavigationController]
       
 
 
