@@ -9,8 +9,7 @@ import UIKit
 
 class ProfileViewController: UIViewController {
 
-    private var dataSource = posts
-    let identifire = "MyCell"
+    let identifire = "postCell"
     
     private let tableView: UITableView = {
         let tableView = UITableView()
@@ -61,13 +60,21 @@ extension ProfileViewController: UITableViewDataSource {
 
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return dataSource.count
+        return posts.count
 
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: identifire, for: indexPath)
-        let post = dataSource[indexPath.row]
+        let cell = tableView.dequeueReusableCell(withIdentifier: "postCell", for: indexPath) as! PostTableViewCell
+        
+        let post = posts[indexPath.row]
+        
+        cell.authorLabel.text = post.author
+        cell.postImageView.image = UIImage(named: post.image)
+        cell.descriptionLabel.text = post.description
+        cell.likesLabel.text = "\(post.likes) likes"
+        cell.viewsLabel.text = "\(post.views) views"
+        
         return cell
     }
     
