@@ -72,6 +72,7 @@ class ProfileHeaderView: UIView {
         self.addSubview(fullNameLabel)
         self.addSubview(setStatusButton)
         self.addSubview(statusLabel)
+        self.backgroundColor = .systemGray6
         
         NSLayoutConstraint.activate([
             avatarImageView.topAnchor.constraint(equalTo: topAnchor, constant: 16),

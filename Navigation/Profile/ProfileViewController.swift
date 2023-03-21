@@ -18,7 +18,7 @@ class ProfileViewController: UIViewController {
     }()
     
     func setupTable() {
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: identifire)
+        tableView.register(PostTableViewCell.self, forCellReuseIdentifier: identifire)
         tableView.delegate = self
         tableView.dataSource = self
     }
@@ -65,7 +65,7 @@ extension ProfileViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "postCell", for: indexPath) as! PostTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: identifire, for: indexPath) as! PostTableViewCell
         
         let post = posts[indexPath.row]
         
