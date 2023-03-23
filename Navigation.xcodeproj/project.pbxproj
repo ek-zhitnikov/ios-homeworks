@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		441992B629B9C09C00A4C3CE /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441992B529B9C09C00A4C3CE /* LogInViewController.swift */; };
+		441A58B329C4539200909230 /* PostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441A58B229C4539200909230 /* PostView.swift */; };
+		441A58B529C4957900909230 /* PostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441A58B429C4957900909230 /* PostTableViewCell.swift */; };
 		446B26C329ACDE800089C298 /* ProfileHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446B26C229ACDE800089C298 /* ProfileHeaderView.swift */; };
 		446B26C529ACDEDA0089C298 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446B26C429ACDEDA0089C298 /* ProfileViewController.swift */; };
 		447879F529C2008A00C75FE2 /* CustomButtom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447879F429C2008A00C75FE2 /* CustomButtom.swift */; };
@@ -25,6 +27,8 @@
 
 /* Begin PBXFileReference section */
 		441992B529B9C09C00A4C3CE /* LogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
+		441A58B229C4539200909230 /* PostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostView.swift; sourceTree = "<group>"; };
+		441A58B429C4957900909230 /* PostTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostTableViewCell.swift; sourceTree = "<group>"; };
 		446B26C229ACDE800089C298 /* ProfileHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderView.swift; sourceTree = "<group>"; };
 		446B26C429ACDEDA0089C298 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		447879F429C2008A00C75FE2 /* CustomButtom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButtom.swift; sourceTree = "<group>"; };
@@ -61,6 +65,8 @@
 				441992B529B9C09C00A4C3CE /* LogInViewController.swift */,
 				447879F429C2008A00C75FE2 /* CustomButtom.swift */,
 				447879F629C2065700C75FE2 /* CustomTextField.swift */,
+				441A58B229C4539200909230 /* PostView.swift */,
+				441A58B429C4957900909230 /* PostTableViewCell.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -176,10 +182,12 @@
 				44D1D488299FB80300D1BDC0 /* InfoViewController.swift in Sources */,
 				447879F529C2008A00C75FE2 /* CustomButtom.swift in Sources */,
 				446B26C329ACDE800089C298 /* ProfileHeaderView.swift in Sources */,
+				441A58B529C4957900909230 /* PostTableViewCell.swift in Sources */,
 				44D1D482299F8F8C00D1BDC0 /* FeedViewController.swift in Sources */,
 				447879F729C2065700C75FE2 /* CustomTextField.swift in Sources */,
 				44DD6EBA299F6A16009624B6 /* SceneDelegate.swift in Sources */,
 				441992B629B9C09C00A4C3CE /* LogInViewController.swift in Sources */,
+				441A58B329C4539200909230 /* PostView.swift in Sources */,
 				44D1D48A299FB95500D1BDC0 /* Model.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
