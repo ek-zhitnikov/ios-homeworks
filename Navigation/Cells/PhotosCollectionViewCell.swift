@@ -1,5 +1,5 @@
 //
-//  PhotoCell.swift
+//  PhotosCollectionViewCell.swift
 //  Navigation
 //
 //  Created by Кужельная Екатерина on 24.03.2023.
@@ -7,9 +7,9 @@
 
 import UIKit
 
-class PhotoCell: UICollectionViewCell {
+class PhotosCollectionViewCell: UICollectionViewCell {
     
-    static let identifier = "ProfilePhotosCell"
+    static let identifier = "PhotosCollectionViewCell"
     
     private lazy var photoView: UIImageView = {
         let photoView = UIImageView()

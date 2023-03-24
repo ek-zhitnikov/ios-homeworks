@@ -19,6 +19,8 @@ class PhotosViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+
         
         navigationController?.navigationBar.isHidden = false
 
@@ -29,9 +31,6 @@ class PhotosViewController: UIViewController {
 
         navigationItem.titleView = titleLabel
         
-
-     
-
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
         layout.minimumInteritemSpacing = sectionInsets.left
@@ -41,11 +40,11 @@ class PhotosViewController: UIViewController {
         layout.sectionInset = sectionInsets
         
         collectionView = UICollectionView(frame: view.frame, collectionViewLayout: layout)
-        collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: cellIdentifire)
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.backgroundColor = .white
         view.addSubview(collectionView)
+        collectionView.register(PhotosCollectionViewCell.self, forCellWithReuseIdentifier: PhotosCollectionViewCell.identifier)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -66,8 +65,10 @@ extension PhotosViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdentifire, for: indexPath)
-        cell.backgroundColor = .gray
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotosCollectionViewCell.identifier, for: indexPath) as! PhotosCollectionViewCell
+
+        cell.updateContent(with: photos[indexPath.row])
+        
         return cell
     }
 }

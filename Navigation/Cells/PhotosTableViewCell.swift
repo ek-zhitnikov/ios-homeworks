@@ -122,12 +122,8 @@ extension PhotosTableViewCell: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotoCell.identifier, for: indexPath) as! PhotoCell
-        
-        if photos.indices.contains(indexPath.row) {
-            cell.updateContent(with: photos[indexPath.row])
-        } else {
-            cell.updateContent(with: "ImagePlaceholder" )
-        }
+
+        cell.updateContent(with: photos[indexPath.row])
         
         cell.contentView.layer.cornerRadius = 6
         return cell
