@@ -9,41 +9,49 @@ import UIKit
 
 class PhotoCell: UICollectionViewCell {
     
-    let imageView: UIImageView = {
-            let imageView = UIImageView()
-            imageView.contentMode = .scaleAspectFill
-            imageView.clipsToBounds = true
-            imageView.layer.cornerRadius = 6
-            imageView.translatesAutoresizingMaskIntoConstraints = false
-            return imageView
-        }()
-        
-        override init(frame: CGRect) {
-            super.init(frame: frame)
-            
-            setupUI()
-            setupConstraint()
-        }
-        
-        required init?(coder: NSCoder) {
-            fatalError("init(coder:) has not been implemented")
-        }
+    static let identifier = "ProfilePhotosCell"
     
-    func setupUI() {
-        addSubview(imageView)
+    private lazy var photoView: UIImageView = {
+        let photoView = UIImageView()
+        photoView.contentMode = .scaleAspectFill
+        photoView.clipsToBounds = true
+        
+        photoView.translatesAutoresizingMaskIntoConstraints = false
+        return photoView
+    }()
+        
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        
+        contentView.clipsToBounds = true
+        addSubviews()
+        setConstraints()
+    }
+        
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
-    func setupConstraint() {
-        
+    private func addSubviews() {
+        contentView.addSubview(photoView)
+    }
+    
+    private func setConstraints() {
         NSLayoutConstraint.activate([
-            imageView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            imageView.leftAnchor.constraint(equalTo: contentView.leftAnchor),
-            imageView.rightAnchor.constraint(equalTo: contentView.rightAnchor),
-            imageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
+            photoView.widthAnchor.constraint(equalTo: contentView.widthAnchor),
+            photoView.heightAnchor.constraint(equalTo: contentView.widthAnchor),
+            photoView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+            photoView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor)
         ])
     }
     
-    public func updateContent(_ photo: PhotoModel) {
-        imageView.image = UIImage(named: photo.imageName)
-   }
+     func updateContent(with photo: PhotoModel) {
+         photoView.image = UIImage(named: photo.imageName)
+    }
+    
+    func updateContent(with placeholder: String) {
+        photoView.image = UIImage(named: placeholder)
+        photoView.backgroundColor = .systemGray5
+        photoView.contentMode = .scaleAspectFit
+    }
 }

@@ -9,7 +9,8 @@ import UIKit
 
 class ProfileViewController: UIViewController {
 
-    let identifire = "postCell"
+    let postCellIdentifire = "postCell"
+    let photoCellIdentifire = "photoCell"
     
     private let tableView: UITableView = {
         let tableView = UITableView()
@@ -18,7 +19,8 @@ class ProfileViewController: UIViewController {
     }()
     
     func setupTable() {
-        tableView.register(PostTableViewCell.self, forCellReuseIdentifier: identifire)
+        tableView.register(PostTableViewCell.self, forCellReuseIdentifier: postCellIdentifire)
+        tableView.register(PhotosTableViewCell.self, forCellReuseIdentifier: photoCellIdentifire)
         tableView.delegate = self
         tableView.dataSource = self
     }
@@ -75,17 +77,27 @@ extension ProfileViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: identifire, for: indexPath) as! PostTableViewCell
+        switch indexPath.section {
+        case 0:
+            let cell = tableView.dequeueReusableCell(withIdentifier: photoCellIdentifire, for: indexPath) as! PhotosTableViewCell
+            cell.setup(tableView.bounds)
+            return cell
+        case 1:
+            let cell = tableView.dequeueReusableCell(withIdentifier: postCellIdentifire, for: indexPath) as! PostTableViewCell
+            let post = posts[indexPath.row]
+            cell.refresh(post)
+            return cell
+        default:
+            break
+        }
         
-        let post = posts[indexPath.row]
-        
-        cell.refresh(post)
-        
-        return cell
+        return UITableViewCell()
     }
+    
+}
     
 
     
-}
+
 
 
