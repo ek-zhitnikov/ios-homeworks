@@ -56,11 +56,21 @@ extension ProfileViewController: UITableViewDelegate{
 }
 
 extension ProfileViewController: UITableViewDataSource {
-   
-
     
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 2
+    }
+   
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return posts.count
+        switch section {
+        case 0:
+            return 1
+        case 1:
+            return posts.count
+        default:
+            break
+        }
+        return 0
 
     }
     
@@ -69,11 +79,7 @@ extension ProfileViewController: UITableViewDataSource {
         
         let post = posts[indexPath.row]
         
-        cell.authorLabel.text = post.author
-        cell.postImageView.image = UIImage(named: post.image)
-        cell.descriptionLabel.text = post.description
-        cell.likesLabel.text = "\(post.likes) likes"
-        cell.viewsLabel.text = "\(post.views) views"
+        cell.refresh(post)
         
         return cell
     }

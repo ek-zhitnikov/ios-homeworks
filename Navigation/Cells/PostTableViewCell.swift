@@ -104,4 +104,12 @@ class PostTableViewCell: UITableViewCell {
         ])
     }
     
+    public func refresh(_ model: NewPost) {
+        authorLabel.text = model.author
+        postImageView.image = UIImage(named: model.image)
+        descriptionLabel.text = model.description
+        likesLabel.text = "\(model.likes) likes"
+        viewsLabel.text = "\(model.views) views"
+    }
+    
 }
