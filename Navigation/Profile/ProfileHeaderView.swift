@@ -10,7 +10,7 @@ import UIKit
 
 class ProfileHeaderView: UIView {
     
-    private let avatarImageView: UIImageView = {
+    /*private*/ let avatarImageView: UIImageView = {
         let view = UIImageView()
         let profilePhoto = UIImage(named: "cat")
         view.image = profilePhoto
@@ -107,7 +107,59 @@ class ProfileHeaderView: UIView {
     }
     
     @objc private func avatarTapped() {
-        print("Аватар нажат!")
+        
+        let screenWidth = UIScreen.main.bounds.width
+        let scale = screenWidth / avatarImageView.frame.width
+        
+        // создаем полупрозрачную view
+        let overlayView = UIView(frame: bounds)
+        overlayView.backgroundColor = UIColor.black.withAlphaComponent(0.5)
+        overlayView.alpha = 0
+        addSubview(overlayView)
+        
+        // создаем кнопку с крестиком
+        let closeButton = UIButton()
+        closeButton.setImage(UIImage(systemName: "xmark"), for: .normal)
+        closeButton.tintColor = .white
+        closeButton.alpha = 0
+        closeButton.addTarget(self, action: #selector(closeButtonTapped), for: .touchUpInside)
+        addSubview(closeButton)
+        
+        // анимация перемещения аватара в центр экрана и растягивания
+        UIView.animate(withDuration: 0.5, animations: {
+            self.avatarImageView.center = self.center
+            self.avatarImageView.transform = CGAffineTransform(scaleX: scale, y: scale)
+            overlayView.alpha = 1
+        }, completion: { finished in
+            // анимация появления кнопки с крестиком
+            UIView.animate(withDuration: 0.3) {
+                closeButton.alpha = 1
+            }
+        })
     }
+    @objc func closeButtonTapped() {
+        let scale = avatarImageView.frame.width / UIScreen.main.bounds.width
+        
+        // находим полупрозрачную view и кнопку с крестиком
+        guard let overlayView = subviews.first(where: { $0 is UIView && $0.alpha == 1 }),
+              let closeButton = subviews.first(where: { $0 is UIButton && $0.alpha == 1 })
+        else {
+            return
+        }
+        
+        // анимация скрытия кнопки с крестиком
+        UIView.animate(withDuration: 0.3, animations: {
+            closeButton.alpha = 0
+        }, completion: { finished in
+            // анимация возвращения аватара в начальное положение и скрытия view
+            UIView.animate(withDuration: 0.5, animations: {
+                self.avatarImageView.center = CGPoint(x: self.frame.width / 2, y: 66)
+                self.avatarImageView.transform = CGAffineTransform.identity
+                overlayView.alpha = 0
+            })
+        }
+        )}
+    
+
 }
 
