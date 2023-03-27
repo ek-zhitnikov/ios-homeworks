@@ -74,6 +74,10 @@ class ProfileHeaderView: UIView {
         self.addSubview(statusLabel)
         self.backgroundColor = .systemGray6
         
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(avatarTapped))
+        avatarImageView.isUserInteractionEnabled = true
+        avatarImageView.addGestureRecognizer(tapGesture)
+        
         NSLayoutConstraint.activate([
             avatarImageView.topAnchor.constraint(equalTo: topAnchor, constant: 16),
             avatarImageView.leftAnchor.constraint(equalTo: leftAnchor, constant: 16),
@@ -100,6 +104,10 @@ class ProfileHeaderView: UIView {
     @objc func buttonPressed() {
         guard let userStatus = statusLabel.text else { return }
         print("\(userStatus)")
+    }
+    
+    @objc private func avatarTapped() {
+        print("Аватар нажат!")
     }
 }
 
