@@ -15,12 +15,31 @@ class PhotosViewController: UIViewController {
     let sectionInsets = UIEdgeInsets(top: 8.0, left: 8.0, bottom: 8.0, right: 8.0)
     let itemsPerRow: CGFloat = 3
     
-    var collectionView: UICollectionView!
+    private lazy var collectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .vertical
+        layout.minimumInteritemSpacing = sectionInsets.left
+        layout.minimumLineSpacing = sectionInsets.left
+        
+        let width = (view.frame.width - (sectionInsets.left + sectionInsets.right + layout.minimumInteritemSpacing * (itemsPerRow - 1))) / itemsPerRow
+        layout.itemSize = CGSize(width: width, height: width)
+        layout.sectionInset = sectionInsets
+        
+
+        let collectionView = UICollectionView(frame: view.frame, collectionViewLayout: layout)
+        collectionView.dataSource = self
+        collectionView.delegate = self
+        collectionView.backgroundColor = .white
+        
+        collectionView.register(PhotosCollectionViewCell.self, forCellWithReuseIdentifier: PhotosCollectionViewCell.identifier)
+        
+        return collectionView
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-
+        view.addSubview(collectionView)
         
         navigationController?.navigationBar.isHidden = false
 
@@ -30,21 +49,7 @@ class PhotosViewController: UIViewController {
         titleLabel.font = UIFont.boldSystemFont(ofSize: 18)
 
         navigationItem.titleView = titleLabel
-        
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .vertical
-        layout.minimumInteritemSpacing = sectionInsets.left
-        layout.minimumLineSpacing = sectionInsets.left
-        let width = (view.frame.width - (sectionInsets.left + sectionInsets.right + layout.minimumInteritemSpacing * (itemsPerRow - 1))) / itemsPerRow
-        layout.itemSize = CGSize(width: width, height: width)
-        layout.sectionInset = sectionInsets
-        
-        collectionView = UICollectionView(frame: view.frame, collectionViewLayout: layout)
-        collectionView.dataSource = self
-        collectionView.delegate = self
-        collectionView.backgroundColor = .white
-        view.addSubview(collectionView)
-        collectionView.register(PhotosCollectionViewCell.self, forCellWithReuseIdentifier: PhotosCollectionViewCell.identifier)
+    
     }
     
     override func viewWillAppear(_ animated: Bool) {
