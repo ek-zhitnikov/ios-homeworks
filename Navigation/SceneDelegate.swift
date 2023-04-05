@@ -37,7 +37,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         postNavigationController.tabBarItem = UITabBarItem(title: "Post", image: UIImage(systemName: "message.fill"), selectedImage: UIImage(systemName: "message.fill"))
         
 
-        let myPost = Post(title: "New post")
+        let myPost = FirstPost(title: "New post")
         postViewController.post = myPost
 
         let tabBarController = UITabBarController()

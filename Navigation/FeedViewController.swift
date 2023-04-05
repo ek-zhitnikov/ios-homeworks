@@ -2,7 +2,7 @@
 import UIKit
 
 class FeedViewController: UIViewController {
-    private let secondPost = Post(title: "PostViewController")
+    private let secondPost = FirstPost(title: "PostViewController")
 
     private lazy var firstButton: UIButton = {
         let button = UIButton()

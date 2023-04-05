@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import StorageService
 
 class PostTableViewCell: UITableViewCell {
     
@@ -104,7 +105,7 @@ class PostTableViewCell: UITableViewCell {
         ])
     }
     
-    public func refresh(_ model: NewPost) {
+    public func refresh(_ model: Post) {
         authorLabel.text = model.author
         postImageView.image = UIImage(named: model.image)
         descriptionLabel.text = model.description
