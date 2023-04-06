@@ -8,7 +8,7 @@
 import UIKit
 
 class PostViewController: UIViewController {
-    var post: Post?
+    var post: FirstPost?
     
     override func viewDidLoad() {
         super.viewDidLoad()

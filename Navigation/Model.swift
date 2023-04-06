@@ -8,13 +8,13 @@
 
 import Foundation
 
-struct Post {
+struct FirstPost {
     var title: String
 }
 
 func main() {
 
-    let myPost = Post(title: "New post")
+    let myPost = FirstPost(title: "New post")
 
     let postViewController = PostViewController()
 
