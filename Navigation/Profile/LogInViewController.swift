@@ -8,7 +8,7 @@
 import UIKit
 
 class LogInViewController: UIViewController {
-   
+
     private var userService: UserService? // Добавляем свойство для UserService
     
     private lazy var scrollView: UIScrollView = {
@@ -114,14 +114,19 @@ class LogInViewController: UIViewController {
         setConstraints()
         addContentSubviews()
         
+        #if DEBUG
+        userService = TestUserService()
+        #else
         // Инициализируем userService с помощью CurrentUserService
         let currentUser = User(
             login: "password",
             fullName: "Playful Cat",
             avatar: UIImage(named: "cat")!,
-            status: "Do you think I'm playing games with you?"
-        )
+            status: "Do you think I'm playing games with you?")
         userService = CurrentUserService(currentUser: currentUser)
+        #endif
+  
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {

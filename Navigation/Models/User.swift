@@ -45,3 +45,14 @@ class CurrentUserService: UserService {
     }
 }
 
+// Класс TestUserService, поддерживающий протокол UserService
+class TestUserService: UserService {
+    static let testUser = User(login: "test_login", fullName: "Test User", avatar: UIImage(named: "logo")!, status: "Test status")
+    
+    func getUser(byLogin login: String) -> User? {
+        guard login == TestUserService.testUser.login else {
+            return nil
+        }
+        return TestUserService.testUser
+    }
+}
