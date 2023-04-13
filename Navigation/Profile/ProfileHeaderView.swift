@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SnapKit
 
 
 class ProfileHeaderView: UIView {
@@ -78,25 +79,50 @@ class ProfileHeaderView: UIView {
         avatarImageView.isUserInteractionEnabled = true
         avatarImageView.addGestureRecognizer(tapGesture)
         
-        NSLayoutConstraint.activate([
-            avatarImageView.topAnchor.constraint(equalTo: topAnchor, constant: 16),
-            avatarImageView.leftAnchor.constraint(equalTo: leftAnchor, constant: 16),
-            avatarImageView.heightAnchor.constraint(equalToConstant: 100),
-            avatarImageView.widthAnchor.constraint(equalToConstant: 100),
-       
-            fullNameLabel.topAnchor.constraint(equalTo: topAnchor, constant: 27),
-            fullNameLabel.leftAnchor.constraint(equalTo: avatarImageView.rightAnchor, constant: 16),
-       
-            setStatusButton.topAnchor.constraint(equalTo: avatarImageView.bottomAnchor, constant: 16),
-            setStatusButton.leftAnchor.constraint(equalTo:leftAnchor, constant: 16),
-            setStatusButton.rightAnchor.constraint(equalTo:rightAnchor, constant: -16),
-            setStatusButton.heightAnchor.constraint(equalToConstant: 50),
-            setStatusButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16),
-       
-            statusLabel.bottomAnchor.constraint(equalTo: setStatusButton.topAnchor, constant: -34),
-            statusLabel.leadingAnchor.constraint(equalTo: fullNameLabel.leadingAnchor),
-            statusLabel.rightAnchor.constraint(equalTo: rightAnchor, constant: -16),
-        ])
+        
+        avatarImageView.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(16)
+            make.left.equalToSuperview().offset(16)
+            make.height.width.equalTo(100)
+        }
+        
+        fullNameLabel.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(27)
+            make.left.equalTo(avatarImageView.snp.right).offset(16)
+        }
+        
+        setStatusButton.snp.makeConstraints { make in
+            make.top.equalTo(avatarImageView.snp.bottom).offset(16)
+            make.left.right.equalToSuperview().inset(16)
+            make.height.equalTo(50)
+            make.bottom.equalToSuperview().inset(16)
+        }
+        
+        statusLabel.snp.makeConstraints { make in
+            make.bottom.equalTo(setStatusButton.snp.top).offset(-34)
+            make.left.equalTo(fullNameLabel)
+            make.right.equalToSuperview().inset(16)
+        }
+        
+//        NSLayoutConstraint.activate([
+//            avatarImageView.topAnchor.constraint(equalTo: topAnchor, constant: 16),
+//            avatarImageView.leftAnchor.constraint(equalTo: leftAnchor, constant: 16),
+//            avatarImageView.heightAnchor.constraint(equalToConstant: 100),
+//            avatarImageView.widthAnchor.constraint(equalToConstant: 100),
+//
+//            fullNameLabel.topAnchor.constraint(equalTo: topAnchor, constant: 27),
+//            fullNameLabel.leftAnchor.constraint(equalTo: avatarImageView.rightAnchor, constant: 16),
+//
+//            setStatusButton.topAnchor.constraint(equalTo: avatarImageView.bottomAnchor, constant: 16),
+//            setStatusButton.leftAnchor.constraint(equalTo:leftAnchor, constant: 16),
+//            setStatusButton.rightAnchor.constraint(equalTo:rightAnchor, constant: -16),
+//            setStatusButton.heightAnchor.constraint(equalToConstant: 50),
+//            setStatusButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16),
+//
+//            statusLabel.bottomAnchor.constraint(equalTo: setStatusButton.topAnchor, constant: -34),
+//            statusLabel.leadingAnchor.constraint(equalTo: fullNameLabel.leadingAnchor),
+//            statusLabel.rightAnchor.constraint(equalTo: rightAnchor, constant: -16),
+//        ])
         
         setStatusButton.addTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
     }
