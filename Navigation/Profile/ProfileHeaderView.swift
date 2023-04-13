@@ -12,7 +12,7 @@ class ProfileHeaderView: UIView {
     
     /*private*/ let avatarImageView: UIImageView = {
         let view = UIImageView()
-        let profilePhoto = UIImage(named: "cat")
+        let profilePhoto = UIImage(named: "logo")
         view.image = profilePhoto
         view.contentMode = .scaleAspectFill
         view.layer.cornerRadius = 50
@@ -25,7 +25,7 @@ class ProfileHeaderView: UIView {
     
     private let fullNameLabel: UILabel = {
         let view = UILabel()
-        view.text = "Playful Cat"
+        view.text = "TEST"
         view.textColor = .black
         view.font = UIFont.systemFont(ofSize: 18, weight: .bold)
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -34,7 +34,7 @@ class ProfileHeaderView: UIView {
     
     private let statusLabel: UILabel = {
         let view = UILabel()
-        view.text = "Do you think I'm playing games with you?"
+        view.text = "TEST"
         view.numberOfLines = 0
         view.lineBreakMode = .byWordWrapping
         view.textColor = .gray
@@ -160,6 +160,11 @@ class ProfileHeaderView: UIView {
         }
         )}
     
+    func setup(user: User) {
+        avatarImageView.image = user.avatar
+        fullNameLabel.text = user.fullName
+        statusLabel.text = user.status
+    }
 
 }
 

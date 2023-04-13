@@ -9,6 +9,7 @@ import UIKit
 
 class LogInViewController: UIViewController {
    
+    private var userService: UserService? // Добавляем свойство для UserService
     
     private lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -112,6 +113,15 @@ class LogInViewController: UIViewController {
         addSubviews()
         setConstraints()
         addContentSubviews()
+        
+        // Инициализируем userService с помощью CurrentUserService
+        let currentUser = User(
+            login: "password",
+            fullName: "Playful Cat",
+            avatar: UIImage(named: "cat")!,
+            status: "Do you think I'm playing games with you?"
+        )
+        userService = CurrentUserService(currentUser: currentUser)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -223,13 +233,17 @@ class LogInViewController: UIViewController {
     }
     
     @objc func pushToProfile(_ button: UIButton) {
-        guard var viewControllers = navigationController?.viewControllers else { return }
-        
-        _ = viewControllers.popLast()
-        
-        viewControllers.append(ProfileViewController())
-        navigationController?.setViewControllers(viewControllers, animated: true)
-        
+        // Получаем информацию о пользователе, введенном в loginField
+        guard let login = loginField.text,
+              let user = userService?.getUser(byLogin: login) // Используем userService
+        else {
+            return
+        }
+
+        // Создаем ProfileViewController и передаем ему информацию о пользователе
+        let profileVC = ProfileViewController()
+        profileVC.user = user
+        navigationController?.pushViewController(profileVC, animated: true)
     }
 }
 
