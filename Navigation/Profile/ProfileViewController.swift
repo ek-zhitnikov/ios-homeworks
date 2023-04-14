@@ -9,6 +9,8 @@ import UIKit
 import StorageService
 
 class ProfileViewController: UIViewController {
+    //В классе ProfileViewController добавьте свойство типа User
+    var user: User?
 
     let postCellIdentifire = "postCell"
     let photoCellIdentifire = "photoCell"
@@ -60,6 +62,9 @@ extension ProfileViewController: UITableViewDelegate{
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if section == 0 {
             let headerView = ProfileHeaderView()
+            if let user = user {
+                headerView.setup(user: user)
+            }
             return headerView
         } else {
             return nil

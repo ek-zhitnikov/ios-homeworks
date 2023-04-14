@@ -8,7 +8,8 @@
 import UIKit
 
 class LogInViewController: UIViewController {
-   
+
+    private var userService: UserService? // Добавляем свойство для UserService
     
     private lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -112,6 +113,20 @@ class LogInViewController: UIViewController {
         addSubviews()
         setConstraints()
         addContentSubviews()
+        
+        #if DEBUG
+        userService = TestUserService()
+        #else
+        // Инициализируем userService с помощью CurrentUserService
+        let currentUser = User(
+            login: "password",
+            fullName: "Playful Cat",
+            avatar: UIImage(named: "cat")!,
+            status: "Do you think I'm playing games with you?")
+        userService = CurrentUserService(currentUser: currentUser)
+        #endif
+  
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -223,13 +238,38 @@ class LogInViewController: UIViewController {
     }
     
     @objc func pushToProfile(_ button: UIButton) {
-        guard var viewControllers = navigationController?.viewControllers else { return }
-        
-        _ = viewControllers.popLast()
-        
-        viewControllers.append(ProfileViewController())
-        navigationController?.setViewControllers(viewControllers, animated: true)
-        
+        // Получаем информацию о пользователе, введенном в loginField
+        guard let login = loginField.text,
+              let user = userService?.getUser(byLogin: login) // Используем userService
+        else {
+            //Вывод сообщения об ошибке
+            showAlert(title: "Ошибка", message: "Введен некорректный логин")
+            return
+        }
+
+        // Создаем ProfileViewController и передаем ему информацию о пользователе
+        let profileVC = ProfileViewController()
+        profileVC.user = user
+        navigationController?.pushViewController(profileVC, animated: true)
+    }
+    
+    //Создание сообщения об ошибке
+    func showAlert(title: String?, message: String?) {
+        let alertController = UIAlertController(
+            title: title,
+            message: message,
+            preferredStyle: .alert
+        )
+
+        let okAction = UIAlertAction(
+            title: "OK",
+            style: .default,
+            handler: nil
+        )
+
+        alertController.addAction(okAction)
+
+        present(alertController, animated: true, completion: nil)
     }
 }
 

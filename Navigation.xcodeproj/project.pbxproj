@@ -34,9 +34,9 @@
 		44F590F029DD92DE008DED9A /* StorageService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44F590DB29DD92DD008DED9A /* StorageService.framework */; };
 		44F590F129DD92DE008DED9A /* StorageService.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 44F590DB29DD92DD008DED9A /* StorageService.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		44F590F929DD95EA008DED9A /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441A58B229C4539200909230 /* Post.swift */; };
-		557F052729E6BA6A0024523C /* iOSIntPackage in Frameworks */ = {isa = PBXBuildFile; productRef = 557F052629E6BA6A0024523C /* iOSIntPackage */; };
-		72005292A94AA0780C856225 /* libPods-StorageService.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FA624FDDCFE9257AA210B90E /* libPods-StorageService.a */; };
-		F0710EC5280395591A73D123 /* libPods-Navigation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C6EC14C3A0C5A0590D35BD24 /* libPods-Navigation.a */; };
+
+		5575AB5F29E7E03C00F2D026 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5575AB5E29E7E03C00F2D026 /* User.swift */; };
+
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -108,10 +108,9 @@
 		44F590DE29DD92DD008DED9A /* StorageService.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = StorageService.docc; sourceTree = "<group>"; };
 		44F590E429DD92DE008DED9A /* StorageServiceTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StorageServiceTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		44F590EB29DD92DE008DED9A /* StorageServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageServiceTests.swift; sourceTree = "<group>"; };
-		533688D00FB5E697AF394213 /* Pods-StorageService.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StorageService.debug.xcconfig"; path = "Target Support Files/Pods-StorageService/Pods-StorageService.debug.xcconfig"; sourceTree = "<group>"; };
-		C6EC14C3A0C5A0590D35BD24 /* libPods-Navigation.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Navigation.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		D8567251E6742D01A9CC88E7 /* Pods-Navigation.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Navigation.debug.xcconfig"; path = "Target Support Files/Pods-Navigation/Pods-Navigation.debug.xcconfig"; sourceTree = "<group>"; };
-		FA624FDDCFE9257AA210B90E /* libPods-StorageService.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-StorageService.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+
+		5575AB5E29E7E03C00F2D026 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -159,6 +158,7 @@
 			isa = PBXGroup;
 			children = (
 				4439395A29CCA1B300E8F712 /* PhotosModel.swift */,
+				5575AB5E29E7E03C00F2D026 /* User.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -472,6 +472,7 @@
 				441992B629B9C09C00A4C3CE /* LogInViewController.swift in Sources */,
 				447D035229CDE9C90059D49D /* PhotosCollectionViewCell.swift in Sources */,
 				44D1D48A299FB95500D1BDC0 /* Model.swift in Sources */,
+				5575AB5F29E7E03C00F2D026 /* User.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
