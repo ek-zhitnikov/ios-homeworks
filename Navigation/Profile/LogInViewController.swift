@@ -242,6 +242,8 @@ class LogInViewController: UIViewController {
         guard let login = loginField.text,
               let user = userService?.getUser(byLogin: login) // Используем userService
         else {
+            //Вывод сообщения об ошибке
+            showAlert(title: "Ошибка", message: "Введен некорректный логин")
             return
         }
 
@@ -249,6 +251,25 @@ class LogInViewController: UIViewController {
         let profileVC = ProfileViewController()
         profileVC.user = user
         navigationController?.pushViewController(profileVC, animated: true)
+    }
+    
+    //Создание сообщения об ошибке
+    func showAlert(title: String?, message: String?) {
+        let alertController = UIAlertController(
+            title: title,
+            message: message,
+            preferredStyle: .alert
+        )
+
+        let okAction = UIAlertAction(
+            title: "OK",
+            style: .default,
+            handler: nil
+        )
+
+        alertController.addAction(okAction)
+
+        present(alertController, animated: true, completion: nil)
     }
 }
 
