@@ -10,8 +10,8 @@ import Foundation
 class Checker {
     static let shared = Checker()
 
-    private let login: String = "myLogin"
-    private let password: String = "myPassword"
+    private let login: String = "test_login"
+    private let password: String = "aaa"
     
     private init() {
     }
