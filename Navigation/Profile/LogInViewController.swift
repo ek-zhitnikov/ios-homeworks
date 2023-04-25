@@ -254,9 +254,7 @@ class LogInViewController: UIViewController {
         if isValid {
             // Правильный ввод логина и пароля
             // Получаем информацию о пользователе, введенном в loginField
-            guard let login = loginField.text,
-                  let user = userService?.getUser(byLogin: login) // Используем userService
-            else { return }
+            let user = userService?.getUser(byLogin: login) // Используем userService
 
             // Создаем ProfileViewController и передаем ему информацию о пользователе
             let profileVC = ProfileViewController()
