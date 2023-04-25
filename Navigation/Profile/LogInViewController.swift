@@ -7,7 +7,15 @@
 
 import UIKit
 
+//Создайте новый протокол LoginViewControllerDelegate, для него пропишите один метод check, который будет использовать созданный Checker
+protocol LoginViewControllerDelegate: AnyObject {
+    func check(login: String, password: String) -> Bool
+}
+
 class LogInViewController: UIViewController {
+    
+    //Для класса LoginViewController сделайте свойство loginDelegate с типом LoginViewControllerDelegate
+    weak var loginDelegate: LoginViewControllerDelegate?
 
     private var userService: UserService? // Добавляем свойство для UserService
     
