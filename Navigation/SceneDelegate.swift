@@ -26,7 +26,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         profileNavigationController.tabBarItem = UITabBarItem(title: "Profile", image: UIImage(systemName: "person"), selectedImage: UIImage(systemName: "person.fill"))
         
         //Внедрите зависимость контроллера LoginViewController от LoginInspector, то есть присвойте значение свойству делегата в классе SceneDelegate
-        let loginInspector = LoginInspector()
+
+        let loginFactory = MyLoginFactory()
+        
+        // Создаем экземпляр LoginInspector с помощью фабрики
+        let loginInspector = loginFactory.makeLoginInspector()
         let logInVС = LogInViewController()
         logInVС.loginDelegate = loginInspector
         logInVС.title = "Profile"

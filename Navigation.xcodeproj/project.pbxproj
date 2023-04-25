@@ -35,6 +35,9 @@
 		44F590F129DD92DE008DED9A /* StorageService.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 44F590DB29DD92DD008DED9A /* StorageService.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		44F590F929DD95EA008DED9A /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441A58B229C4539200909230 /* Post.swift */; };
 		5575AB5F29E7E03C00F2D026 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5575AB5E29E7E03C00F2D026 /* User.swift */; };
+		55C9E39929F809770000420D /* LoginFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C9E39829F809770000420D /* LoginFactory.swift */; };
+		55FDB6F929F7AE2500F425F6 /* Checker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55FDB6F829F7AE2500F425F6 /* Checker.swift */; };
+		55FDB6FC29F7B6F800F425F6 /* LoginInspector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55FDB6FB29F7B6F800F425F6 /* LoginInspector.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -105,6 +108,9 @@
 		44F590E429DD92DE008DED9A /* StorageServiceTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StorageServiceTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		44F590EB29DD92DE008DED9A /* StorageServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageServiceTests.swift; sourceTree = "<group>"; };
 		5575AB5E29E7E03C00F2D026 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		55C9E39829F809770000420D /* LoginFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginFactory.swift; sourceTree = "<group>"; };
+		55FDB6F829F7AE2500F425F6 /* Checker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Checker.swift; sourceTree = "<group>"; };
+		55FDB6FB29F7B6F800F425F6 /* LoginInspector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginInspector.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -190,6 +196,8 @@
 		44DD6EB6299F6A16009624B6 /* Navigation */ = {
 			isa = PBXGroup;
 			children = (
+				55C9E39729F8095A0000420D /* LoginFactory */,
+				55FDB6FA29F7B6CC00F425F6 /* Checker */,
 				4439395929CCA17000E8F712 /* Cells */,
 				4439395829CCA15500E8F712 /* Models */,
 				446B26BF29ACDE200089C298 /* Profile */,
@@ -223,6 +231,23 @@
 				44F590EB29DD92DE008DED9A /* StorageServiceTests.swift */,
 			);
 			path = StorageServiceTests;
+			sourceTree = "<group>";
+		};
+		55C9E39729F8095A0000420D /* LoginFactory */ = {
+			isa = PBXGroup;
+			children = (
+				55C9E39829F809770000420D /* LoginFactory.swift */,
+			);
+			path = LoginFactory;
+			sourceTree = "<group>";
+		};
+		55FDB6FA29F7B6CC00F425F6 /* Checker */ = {
+			isa = PBXGroup;
+			children = (
+				55FDB6F829F7AE2500F425F6 /* Checker.swift */,
+				55FDB6FB29F7B6F800F425F6 /* LoginInspector.swift */,
+			);
+			path = Checker;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -368,7 +393,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				55FDB6FC29F7B6F800F425F6 /* LoginInspector.swift in Sources */,
 				4439395729CC88C400E8F712 /* PhotosTableViewCell.swift in Sources */,
+				55FDB6F929F7AE2500F425F6 /* Checker.swift in Sources */,
 				44D1D486299F960600D1BDC0 /* PostViewController.swift in Sources */,
 				44DD6EBC299F6A16009624B6 /* ViewController.swift in Sources */,
 				446B26C529ACDEDA0089C298 /* ProfileViewController.swift in Sources */,
@@ -380,6 +407,7 @@
 				447D035029CDCDA10059D49D /* PhotosViewController.swift in Sources */,
 				441A58B529C4957900909230 /* PostTableViewCell.swift in Sources */,
 				44D1D482299F8F8C00D1BDC0 /* FeedViewController.swift in Sources */,
+				55C9E39929F809770000420D /* LoginFactory.swift in Sources */,
 				4439395B29CCA1B300E8F712 /* PhotosModel.swift in Sources */,
 				447879F729C2065700C75FE2 /* CustomTextField.swift in Sources */,
 				44DD6EBA299F6A16009624B6 /* SceneDelegate.swift in Sources */,
