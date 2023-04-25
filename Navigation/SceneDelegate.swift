@@ -25,10 +25,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let profileNavigationController = UINavigationController(rootViewController: profileViewController)
         profileNavigationController.tabBarItem = UITabBarItem(title: "Profile", image: UIImage(systemName: "person"), selectedImage: UIImage(systemName: "person.fill"))
         
-        
-        let logInViewController = LogInViewController()
-        logInViewController.title = "Profile"
-        let logInNavigationController = UINavigationController(rootViewController: logInViewController)
+        //Внедрите зависимость контроллера LoginViewController от LoginInspector, то есть присвойте значение свойству делегата в классе SceneDelegate
+        let loginInspector = LoginInspector()
+        let logInVС = LogInViewController()
+        logInVС.loginDelegate = loginInspector
+        logInVС.title = "Profile"
+        let logInNavigationController = UINavigationController(rootViewController: logInVС)
         logInNavigationController.tabBarItem = UITabBarItem(title: "Profile", image: UIImage(systemName: "person"), selectedImage: UIImage(systemName: "person.fill"))
         
         
