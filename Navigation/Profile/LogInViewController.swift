@@ -7,7 +7,15 @@
 
 import UIKit
 
+//Создайте новый протокол LoginViewControllerDelegate, для него пропишите один метод check, который будет использовать созданный Checker
+protocol LoginViewControllerDelegate {
+    func check(login: String, password: String) -> Bool
+}
+
 class LogInViewController: UIViewController {
+    
+    //Для класса LoginViewController сделайте свойство loginDelegate с типом LoginViewControllerDelegate
+    var loginDelegate: LoginViewControllerDelegate?
 
     private var userService: UserService? // Добавляем свойство для UserService
     
@@ -60,7 +68,7 @@ class LogInViewController: UIViewController {
         view.font = UIFont.systemFont(ofSize: 16, weight: .regular)
         view.placeholder = "Password"
         view.autocapitalizationType = .none
-        view.isSecureTextEntry = true
+//        view.isSecureTextEntry = true
         view.returnKeyType = .done
         view.translatesAutoresizingMaskIntoConstraints = false
         view.delegate = self
@@ -119,7 +127,7 @@ class LogInViewController: UIViewController {
         #else
         // Инициализируем userService с помощью CurrentUserService
         let currentUser = User(
-            login: "password",
+            login: "aaa",
             fullName: "Playful Cat",
             avatar: UIImage(named: "cat")!,
             status: "Do you think I'm playing games with you?")
@@ -238,38 +246,26 @@ class LogInViewController: UIViewController {
     }
     
     @objc func pushToProfile(_ button: UIButton) {
-        // Получаем информацию о пользователе, введенном в loginField
-        guard let login = loginField.text,
-              let user = userService?.getUser(byLogin: login) // Используем userService
-        else {
-            //Вывод сообщения об ошибке
-            showAlert(title: "Ошибка", message: "Введен некорректный логин")
-            return
+        //Реализуйте в LoginViewController проверку логина и пароля, введённого пользователем с помощью loginDelegate
+        guard let login = loginField.text, let password = passwordField.text else { return }
+
+        let isValid = loginDelegate?.check(login: login, password: password) ?? false
+
+        if isValid {
+            // Правильный ввод логина и пароля
+            // Получаем информацию о пользователе, введенном в loginField
+            let user = userService?.getUser(byLogin: login) // Используем userService
+
+            // Создаем ProfileViewController и передаем ему информацию о пользователе
+            let profileVC = ProfileViewController()
+            profileVC.user = user
+            navigationController?.pushViewController(profileVC, animated: true)
+        } else {
+            // Неверный ввод логина и пароля
+            let alert = UIAlertController(title: "Ошибка", message: "Неправильный логин или пароль", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            present(alert, animated: true, completion: nil)
         }
-
-        // Создаем ProfileViewController и передаем ему информацию о пользователе
-        let profileVC = ProfileViewController()
-        profileVC.user = user
-        navigationController?.pushViewController(profileVC, animated: true)
-    }
-    
-    //Создание сообщения об ошибке
-    func showAlert(title: String?, message: String?) {
-        let alertController = UIAlertController(
-            title: title,
-            message: message,
-            preferredStyle: .alert
-        )
-
-        let okAction = UIAlertAction(
-            title: "OK",
-            style: .default,
-            handler: nil
-        )
-
-        alertController.addAction(okAction)
-
-        present(alertController, animated: true, completion: nil)
     }
 }
 
