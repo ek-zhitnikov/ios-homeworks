@@ -6,26 +6,36 @@
 //
 
 import UIKit
+import iOSIntPackage
 
 class PhotosViewController: UIViewController {
     
+    // photos - массив моделей фотографий
     fileprivate let photos = PhotoModel.make()
     
+    // cellIdentifire - идентификатор ячейки коллекции
     let cellIdentifire = "photoCellIdentifire"
+    
+    // sectionInsets - отступы между секциями коллекции
     let sectionInsets = UIEdgeInsets(top: 8.0, left: 8.0, bottom: 8.0, right: 8.0)
+    
+    // itemsPerRow - количество элементов в ряду коллекции
     let itemsPerRow: CGFloat = 3
     
+    // collectionView - коллекция для отображения фотографий
     private lazy var collectionView: UICollectionView = {
+        // layout - настройка внешнего вида коллекции
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
         layout.minimumInteritemSpacing = sectionInsets.left
         layout.minimumLineSpacing = sectionInsets.left
         
+        // width - вычисление ширины ячейки в коллекции
         let width = (view.frame.width - (sectionInsets.left + sectionInsets.right + layout.minimumInteritemSpacing * (itemsPerRow - 1))) / itemsPerRow
         layout.itemSize = CGSize(width: width, height: width)
         layout.sectionInset = sectionInsets
         
-
+        // collectionView - создание коллекции с настройками и регистрацией ячеек
         let collectionView = UICollectionView(frame: view.frame, collectionViewLayout: layout)
         collectionView.dataSource = self
         collectionView.delegate = self
@@ -40,9 +50,9 @@ class PhotosViewController: UIViewController {
         super.viewDidLoad()
 
         view.addSubview(collectionView)
-        
+        // установка видимости навигационной панели
         navigationController?.navigationBar.isHidden = false
-
+        // настройка заголовка в навигационной панели
         let titleLabel = UILabel()
         titleLabel.text = "Photo Gallery"
         titleLabel.textAlignment = .center
@@ -64,11 +74,11 @@ class PhotosViewController: UIViewController {
 }
 
 extension PhotosViewController: UICollectionViewDataSource {
-    
+    // numberOfItemsInSection - метод, возвращающий количество элементов в коллекции
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return photos.count
     }
-    
+    // cellForItemAt - метод, возвращающий ячейку для элемента
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotosCollectionViewCell.identifier, for: indexPath) as! PhotosCollectionViewCell
 
@@ -79,10 +89,14 @@ extension PhotosViewController: UICollectionViewDataSource {
 }
 
 extension PhotosViewController: UICollectionViewDelegateFlowLayout {
-    
+    // layout - метод, возвращиющи отступы
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return sectionInsets
     }
 }
 
-
+extension PhotosViewController: ImageLibrarySubscriber {
+    func receive(images: [UIImage]) {
+        <#code#>
+    }
+}
