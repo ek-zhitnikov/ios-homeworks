@@ -11,7 +11,10 @@ import iOSIntPackage
 class PhotosViewController: UIViewController {
     
     // photos - массив моделей фотографий
-    fileprivate let photos = PhotoModel.make()
+    fileprivate var photos = PhotoModel.make()
+    
+    // Создайте для PhotosViewController экземпляр класса ImagePublisherFacade
+    private let imagePublisherFacade = ImagePublisherFacade()
     
     // cellIdentifire - идентификатор ячейки коллекции
     let cellIdentifire = "photoCellIdentifire"
@@ -59,6 +62,10 @@ class PhotosViewController: UIViewController {
         titleLabel.font = UIFont.boldSystemFont(ofSize: 18)
 
         navigationItem.titleView = titleLabel
+        
+        // Подписываемся на обновления изображений, чтобы обновлять нашу коллекцию
+        imagePublisherFacade.subscribe(self)
+        imagePublisherFacade.addImagesWithTimer(time: 0.5, repeat: photos.count, userImages: photos)
     
     }
     
@@ -70,6 +77,8 @@ class PhotosViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         navigationController?.setNavigationBarHidden(true, animated: true)
+        imagePublisherFacade.rechargeImageLibrary()
+        imagePublisherFacade.removeSubscription(for: self)
     }
 }
 
@@ -97,6 +106,8 @@ extension PhotosViewController: UICollectionViewDelegateFlowLayout {
 
 extension PhotosViewController: ImageLibrarySubscriber {
     func receive(images: [UIImage]) {
-        <#code#>
+        self.photos = images
+        // Обновляем коллекцию с новыми фотографиями
+        self.collectionView.reloadData()
     }
 }
