@@ -43,17 +43,8 @@ class ProfileHeaderView: UIView {
         return view
     }()
     
-    private let setStatusButton: UIButton = {
-        let view = UIButton()
-        view.backgroundColor = .systemBlue
-        view.setTitle("Show status", for: .normal)
-        view.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .medium)
-        view.layer.cornerRadius = 4
-        view.layer.masksToBounds = false
-        view.layer.shadowOffset = CGSize(width: 4, height: 4)
-        view.layer.shadowRadius = 4
-        view.layer.shadowColor = UIColor.black.cgColor
-        view.layer.shadowOpacity = 0.7
+    private lazy var setStatusButton: CustomButton = {
+        let view = CustomButton(title: "Show status")
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -98,13 +89,15 @@ class ProfileHeaderView: UIView {
             statusLabel.rightAnchor.constraint(equalTo: rightAnchor, constant: -16),
         ])
         
-        setStatusButton.addTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
+        setStatusButton.buttonAction = { [weak self] in
+            guard let status = self?.statusLabel.text else {
+                print("Nothing to see here")
+                return
+            }
+            print (status)
+        }
     }
-    
-    @objc func buttonPressed() {
-        guard let userStatus = statusLabel.text else { return }
-        print("\(userStatus)")
-    }
+
     
     @objc private func avatarTapped() {
         

@@ -25,14 +25,12 @@ class LogInViewController: UIViewController {
         scrollView.showsVerticalScrollIndicator = false
         scrollView.showsHorizontalScrollIndicator = false
         scrollView.clipsToBounds = true
-        
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         return scrollView
     }()
     
     private lazy var contentView: UIView = {
         let view = UIView()
-        
         view.backgroundColor = .white
         view.clipsToBounds = true
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -43,10 +41,8 @@ class LogInViewController: UIViewController {
     private lazy var logoImage: UIImageView = {
         let view = UIImageView()
         view.image = UIImage(named: "logo")
-
         view.contentMode = .scaleAspectFit
         view.translatesAutoresizingMaskIntoConstraints = false
-
         return view
     }()
     
@@ -68,7 +64,7 @@ class LogInViewController: UIViewController {
         view.font = UIFont.systemFont(ofSize: 16, weight: .regular)
         view.placeholder = "Password"
         view.autocapitalizationType = .none
-//        view.isSecureTextEntry = true
+        view.isSecureTextEntry = true
         view.returnKeyType = .done
         view.translatesAutoresizingMaskIntoConstraints = false
         view.delegate = self
@@ -82,34 +78,23 @@ class LogInViewController: UIViewController {
         view.layer.borderWidth = 0.3
         view.layer.cornerRadius = 10
         view.tintColor = UIColor(named: "ColorSet")
-
         view.axis = .vertical
         view.distribution = .fillProportionally
         view.spacing = 0.0
-
         let separator = UIView()
         separator.backgroundColor = .lightGray
         separator.heightAnchor.constraint(equalToConstant: 0.3).isActive = true
         separator.translatesAutoresizingMaskIntoConstraints = false
-
         view.addArrangedSubview(loginField)
         view.addArrangedSubview(separator)
         view.addArrangedSubview(passwordField)
-
         view.translatesAutoresizingMaskIntoConstraints = false
-
         return view
     }()
     
     private lazy var loginButton: CustomButton = {
-        let view = CustomButton(custom: true, initAction: .logIn, color: UIColor(named: "ColorSet"))
-        view.backgroundColor = .white
-        view.layer.backgroundColor = view.color?.cgColor
-        view.titleLabel?.textColor = .white
-        view.layer.cornerRadius = 10
-
+        let view = CustomButton(title: "LogIn", color: UIColor(named: "ColorSet"))
         view.translatesAutoresizingMaskIntoConstraints = false
-
         return view
     }()
     
@@ -141,30 +126,25 @@ class LogInViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
         setKeyboardObservers()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        
         removeKeyboardObservers()
     }
     
-    
-
     private func setup() {
-        
         view.backgroundColor = .white
         navigationController?.navigationBar.isHidden = true
-        
-        loginButton.addTarget(self, action: #selector(pushToProfile(_:)), for: .touchUpInside)
+        loginButton.buttonAction = {[weak self] in
+            self?.pushToProfile()
+        }
     }
     
     private func addSubviews() {
         view.addSubview(scrollView)
         scrollView.addSubview(contentView)
-        
     }
     
     private func setConstraints() {
@@ -230,6 +210,7 @@ class LogInViewController: UIViewController {
             loginButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             loginButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16)
         ])
+        
     }
     
     
@@ -237,7 +218,6 @@ class LogInViewController: UIViewController {
         guard let keyboardHeight = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue.height else {
             return
         }
-        
         if contentView.frame.height > keyboardHeight {
             scrollView.contentInset.bottom = keyboardHeight
         }
@@ -247,7 +227,7 @@ class LogInViewController: UIViewController {
         scrollView.contentInset.bottom = 0.0
     }
     
-    @objc func pushToProfile(_ button: UIButton) {
+    private func pushToProfile() {
         //Реализуйте в LoginViewController проверку логина и пароля, введённого пользователем с помощью loginDelegate
         guard let login = loginField.text, let password = passwordField.text else { return }
 
