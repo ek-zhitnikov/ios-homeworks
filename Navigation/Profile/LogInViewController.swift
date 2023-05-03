@@ -124,6 +124,8 @@ class LogInViewController: UIViewController {
         
         #if DEBUG
         userService = TestUserService()
+        loginField.text = "test_login"
+        passwordField.text = "aaa"
         #else
         // Инициализируем userService с помощью CurrentUserService
         let currentUser = User(
