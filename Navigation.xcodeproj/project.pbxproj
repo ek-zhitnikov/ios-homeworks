@@ -34,6 +34,7 @@
 		44F590F029DD92DE008DED9A /* StorageService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44F590DB29DD92DD008DED9A /* StorageService.framework */; };
 		44F590F129DD92DE008DED9A /* StorageService.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 44F590DB29DD92DD008DED9A /* StorageService.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		44F590F929DD95EA008DED9A /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441A58B229C4539200909230 /* Post.swift */; };
+		555C0B1A2A0295A800AE99CD /* FeedModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555C0B192A0295A800AE99CD /* FeedModel.swift */; };
 		55635CB82A010A4200A0AC8C /* iOSIntPackage in Frameworks */ = {isa = PBXBuildFile; productRef = 55635CB72A010A4200A0AC8C /* iOSIntPackage */; };
 		5575AB5F29E7E03C00F2D026 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5575AB5E29E7E03C00F2D026 /* User.swift */; };
 		55C9E39929F809770000420D /* LoginFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C9E39829F809770000420D /* LoginFactory.swift */; };
@@ -108,6 +109,7 @@
 		44F590DE29DD92DD008DED9A /* StorageService.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = StorageService.docc; sourceTree = "<group>"; };
 		44F590E429DD92DE008DED9A /* StorageServiceTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StorageServiceTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		44F590EB29DD92DE008DED9A /* StorageServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageServiceTests.swift; sourceTree = "<group>"; };
+		555C0B192A0295A800AE99CD /* FeedModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedModel.swift; sourceTree = "<group>"; };
 		5575AB5E29E7E03C00F2D026 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		55C9E39829F809770000420D /* LoginFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginFactory.swift; sourceTree = "<group>"; };
 		55FDB6F829F7AE2500F425F6 /* Checker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Checker.swift; sourceTree = "<group>"; };
@@ -147,6 +149,7 @@
 			children = (
 				4439395A29CCA1B300E8F712 /* PhotosModel.swift */,
 				5575AB5E29E7E03C00F2D026 /* User.swift */,
+				555C0B192A0295A800AE99CD /* FeedModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -165,6 +168,7 @@
 		446B26BF29ACDE200089C298 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
+				44D1D481299F8F8C00D1BDC0 /* FeedViewController.swift */,
 				446B26C229ACDE800089C298 /* ProfileHeaderView.swift */,
 				446B26C429ACDEDA0089C298 /* ProfileViewController.swift */,
 				441992B529B9C09C00A4C3CE /* LogInViewController.swift */,
@@ -209,7 +213,6 @@
 				44DD6EC0299F6A18009624B6 /* Assets.xcassets */,
 				44DD6EC2299F6A18009624B6 /* LaunchScreen.storyboard */,
 				44DD6EC5299F6A18009624B6 /* Info.plist */,
-				44D1D481299F8F8C00D1BDC0 /* FeedViewController.swift */,
 				44D1D485299F960600D1BDC0 /* PostViewController.swift */,
 				44D1D487299FB80300D1BDC0 /* InfoViewController.swift */,
 				44D1D489299FB95500D1BDC0 /* Model.swift */,
@@ -405,6 +408,7 @@
 				4439395729CC88C400E8F712 /* PhotosTableViewCell.swift in Sources */,
 				55FDB6F929F7AE2500F425F6 /* Checker.swift in Sources */,
 				44D1D486299F960600D1BDC0 /* PostViewController.swift in Sources */,
+				555C0B1A2A0295A800AE99CD /* FeedModel.swift in Sources */,
 				44DD6EBC299F6A16009624B6 /* ViewController.swift in Sources */,
 				446B26C529ACDEDA0089C298 /* ProfileViewController.swift in Sources */,
 				44DD6EB8299F6A16009624B6 /* AppDelegate.swift in Sources */,
