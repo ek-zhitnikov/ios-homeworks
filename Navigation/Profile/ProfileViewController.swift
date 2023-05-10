@@ -6,11 +6,11 @@
 //
 
 import UIKit
-import StorageService
 
 class ProfileViewController: UIViewController {
     //В классе ProfileViewController добавьте свойство типа User
     var user: User?
+    var viewModel = ProfileViewModel()
 
     let postCellIdentifire = "postCell"
     let photoCellIdentifire = "photoCell"
@@ -34,6 +34,7 @@ class ProfileViewController: UIViewController {
         view.addSubview(tableView)
         setupUI()
         setupTable()
+        viewModel.fetchPosts()
         
         let backButton = UIBarButtonItem(title: "Back", style: .plain, target: nil, action: nil)
         navigationItem.backBarButtonItem = backButton
@@ -90,7 +91,7 @@ extension ProfileViewController: UITableViewDelegate{
             case 0:
                 return 1
             case 1:
-                return posts.count
+                return viewModel.modelPosts.count
             default:
                 break
             }
@@ -106,7 +107,7 @@ extension ProfileViewController: UITableViewDelegate{
                 return cell
             case 1:
                 let cell = tableView.dequeueReusableCell(withIdentifier: postCellIdentifire, for: indexPath) as! PostTableViewCell
-                let post = posts[indexPath.row]
+                let post = viewModel.modelPosts[indexPath.row]
                 cell.refresh(post)
                 return cell
             default:
