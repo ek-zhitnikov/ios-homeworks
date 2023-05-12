@@ -32,4 +32,10 @@ class LoginCoordinator: Coordinator {
         
         loginViewController.coordinator = self
     }
+    
+    func showProfile(_ user: User) {
+        let profileVC = ProfileViewController()
+        profileVC.user = user
+        navigationController.pushViewController(profileVC, animated: true)
+    }
 }

@@ -11,7 +11,7 @@ class ProfileViewController: UIViewController {
     //В классе ProfileViewController добавьте свойство типа User
     var user: User?
     var viewModel = ProfileViewModel()
-
+    
     let postCellIdentifire = "postCell"
     let photoCellIdentifire = "photoCell"
     

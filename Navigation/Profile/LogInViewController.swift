@@ -240,9 +240,7 @@ class LogInViewController: UIViewController {
             let user = userService?.getUser(byLogin: login) // Используем userService
 
             // Создаем ProfileViewController и передаем ему информацию о пользователе
-            let profileVC = ProfileViewController()
-            profileVC.user = user
-            navigationController?.pushViewController(profileVC, animated: true)
+            coordinator?.showProfile(user!)
         } else {
             // Неверный ввод логина и пароля
             let alert = UIAlertController(title: "Ошибка", message: "Неправильный логин или пароль", preferredStyle: .alert)
