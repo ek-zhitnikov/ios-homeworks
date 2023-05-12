@@ -4,6 +4,8 @@ import UIKit
 class FeedViewController: UIViewController, UITextFieldDelegate {
     private let secondPost = FirstPost(title: "PostViewController")
     private let feedModel = FeedModel()
+    weak var coordinator: FeedCoordinator?
+
     
     private lazy var firstButton: UIButton = {
         let button = UIButton()

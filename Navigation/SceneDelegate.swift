@@ -9,51 +9,19 @@ import UIKit
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
+    var coordinator: AppCoordinator?
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-
         guard let windowScene = (scene as? UIWindowScene) else { return }
 
-        let feedViewController = FeedViewController()
-        feedViewController.title = "Feed"
-        let feedNavigationController = UINavigationController(rootViewController: feedViewController)
-        feedNavigationController.tabBarItem = UITabBarItem(title: "Feed", image: UIImage(systemName: "house"), selectedImage: UIImage(systemName: "house.fill"))
-        
-        
-        let profileViewController = ProfileViewController()
-        profileViewController.title = "Profile"
-        let profileNavigationController = UINavigationController(rootViewController: profileViewController)
-        profileNavigationController.tabBarItem = UITabBarItem(title: "Profile", image: UIImage(systemName: "person"), selectedImage: UIImage(systemName: "person.fill"))
-        
-        //Внедрите зависимость контроллера LoginViewController от LoginInspector, то есть присвойте значение свойству делегата в классе SceneDelegate
-
-        let loginFactory = MyLoginFactory()
-        
-        // Создаем экземпляр LoginInspector с помощью фабрики
-        let loginInspector = loginFactory.makeLoginInspector()
-        let logInVС = LogInViewController()
-        logInVС.loginDelegate = loginInspector
-        logInVС.title = "Profile"
-        let logInNavigationController = UINavigationController(rootViewController: logInVС)
-        logInNavigationController.tabBarItem = UITabBarItem(title: "Profile", image: UIImage(systemName: "person"), selectedImage: UIImage(systemName: "person.fill"))
-        
-        
-        let postViewController = PostViewController()
-        let postNavigationController = UINavigationController(rootViewController: postViewController)
-        postNavigationController.tabBarItem = UITabBarItem(title: "Post", image: UIImage(systemName: "message.fill"), selectedImage: UIImage(systemName: "message.fill"))
-        
-
-        let myPost = FirstPost(title: "New post")
-        postViewController.post = myPost
-
         let tabBarController = UITabBarController()
-        tabBarController.viewControllers = [feedNavigationController, logInNavigationController]
-      
+        window = UIWindow(windowScene: windowScene)
+        window?.rootViewController = tabBarController
 
+        coordinator = AppCoordinator(tabBarController: tabBarController)
+        coordinator?.start()
 
-        let window = UIWindow(windowScene: windowScene)
-        window.rootViewController = tabBarController
-        self.window = window
-        window.makeKeyAndVisible()
+        window?.makeKeyAndVisible()
     }
 }
+

@@ -13,7 +13,8 @@ protocol LoginViewControllerDelegate {
 }
 
 class LogInViewController: UIViewController {
-    
+    weak var coordinator: LoginCoordinator?
+
     //Для класса LoginViewController сделайте свойство loginDelegate с типом LoginViewControllerDelegate
     var loginDelegate: LoginViewControllerDelegate?
 
