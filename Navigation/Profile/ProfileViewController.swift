@@ -11,6 +11,7 @@ class ProfileViewController: UIViewController {
     //В классе ProfileViewController добавьте свойство типа User
     var user: User?
     var viewModel = ProfileViewModel()
+    weak var coordinator: ProfileCoordinator?
     
     let postCellIdentifire = "postCell"
     let photoCellIdentifire = "photoCell"

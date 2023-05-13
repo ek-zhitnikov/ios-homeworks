@@ -16,6 +16,7 @@ class FeedCoordinator: Coordinator {
 
     let navigationController: UINavigationController
 
+
     init() {
         let feedViewController = FeedViewController()
         feedViewController.title = "Feed"
@@ -28,5 +29,12 @@ class FeedCoordinator: Coordinator {
         )
 
         feedViewController.coordinator = self
+    }
+    
+    func showPost() {
+        let secondPost = FirstPost(title: "PostViewController")
+        let postVC = PostViewController()
+        postVC.post = secondPost
+        navigationController.pushViewController(postVC, animated: true)
     }
 }

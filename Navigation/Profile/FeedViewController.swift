@@ -2,7 +2,6 @@
 import UIKit
 
 class FeedViewController: UIViewController, UITextFieldDelegate {
-    private let secondPost = FirstPost(title: "PostViewController")
     private let feedModel = FeedModel()
     weak var coordinator: FeedCoordinator?
 
@@ -77,7 +76,7 @@ class FeedViewController: UIViewController, UITextFieldDelegate {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
         stackView.spacing = 10
-//        stackView.addArrangedSubview(self.firstButton)
+        stackView.addArrangedSubview(self.firstButton)
 //        stackView.addArrangedSubview(self.secondButton)
         stackView.addArrangedSubview(self.label)
         stackView.addArrangedSubview(self.newTextField)
@@ -105,9 +104,7 @@ class FeedViewController: UIViewController, UITextFieldDelegate {
     }
     
     @objc private func tapButton() {
-        let postVC = PostViewController()
-        postVC.post = secondPost
-        navigationController?.pushViewController(postVC, animated: true)
+        coordinator?.showPost()
     }
     
     private func didCheckGuess(_ isTrue: Bool) {

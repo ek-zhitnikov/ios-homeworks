@@ -34,8 +34,8 @@ class LoginCoordinator: Coordinator {
     }
     
     func showProfile(_ user: User) {
-        let profileVC = ProfileViewController()
-        profileVC.user = user
-        navigationController.pushViewController(profileVC, animated: true)
+        let profileCoordinator = ProfileCoordinator(user, navigationController: navigationController)
+        childCoordinators.append(profileCoordinator)
     }
 }
+
