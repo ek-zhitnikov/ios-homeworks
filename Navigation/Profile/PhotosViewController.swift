@@ -11,11 +11,14 @@ import iOSIntPackage
 class PhotosViewController: UIViewController {
     
     // photos - массив моделей фотографий
-    fileprivate var photos = PhotoModel.make()
+    fileprivate var photos: [UIImage] = PhotoModel.make()
     
-    // Создайте для PhotosViewController экземпляр класса ImagePublisherFacade
+/*    // Создайте для PhotosViewController экземпляр класса ImagePublisherFacade
     private let imagePublisherFacade = ImagePublisherFacade()
-    
+ */
+    //
+    private let imageProcessor = ImageProcessor()
+
     // cellIdentifire - идентификатор ячейки коллекции
     let cellIdentifire = "photoCellIdentifire"
     
@@ -63,10 +66,12 @@ class PhotosViewController: UIViewController {
 
         navigationItem.titleView = titleLabel
         
-        // Подписываемся на обновления изображений, чтобы обновлять нашу коллекцию
+ /*       // Подписываемся на обновления изображений, чтобы обновлять нашу коллекцию
         imagePublisherFacade.subscribe(self)
         imagePublisherFacade.addImagesWithTimer(time: 0.5, repeat: photos.count, userImages: photos)
-    
+  */
+        processImagesOnThread()
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -77,9 +82,35 @@ class PhotosViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         navigationController?.setNavigationBarHidden(true, animated: true)
-        imagePublisherFacade.rechargeImageLibrary()
-        imagePublisherFacade.removeSubscription(for: self)
+/*        imagePublisherFacade.rechargeImageLibrary()
+       imagePublisherFacade.removeSubscription(for: self)
+ */
     }
+    
+    private func processImagesOnThread() {
+        
+        imageProcessor.processImagesOnThread(sourceImages: photos,
+                                             filter: .chrome,
+                                             qos: .utility,
+                                             completion: {images in
+            let startTime = Date().timeIntervalSince1970
+            DispatchQueue.main.async {
+                self.photos = images.map {
+                    guard let cgImage = $0 else {fatalError("something went wrong while getting images")}
+                    return UIImage(cgImage: cgImage)
+                }
+                self.collectionView.reloadSections(IndexSet(integer: 0))
+            }
+            let endTime = Date().timeIntervalSince1970
+            let elapsedTime = endTime - startTime
+            print(elapsedTime)
+        })
+    }
+//    7.295608520507812e-05 qos: .default
+//    0.00011610984802246094 qos: .background
+//    0.00015592575073242188 qos: .userInitiated
+//    7.915496826171875e-05 qos: .userInteractive
+//    6.794929504394531e-05 qos: .utility
 }
 
 extension PhotosViewController: UICollectionViewDataSource {
@@ -104,10 +135,11 @@ extension PhotosViewController: UICollectionViewDelegateFlowLayout {
     }
 }
 
-extension PhotosViewController: ImageLibrarySubscriber {
+/*extension PhotosViewController: ImageLibrarySubscriber {
     func receive(images: [UIImage]) {
         self.photos = images
         // Обновляем коллекцию с новыми фотографиями
         self.collectionView.reloadData()
     }
 }
+*/
