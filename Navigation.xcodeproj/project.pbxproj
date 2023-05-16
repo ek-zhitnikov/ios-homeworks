@@ -39,6 +39,11 @@
 		55635CB82A010A4200A0AC8C /* iOSIntPackage in Frameworks */ = {isa = PBXBuildFile; productRef = 55635CB72A010A4200A0AC8C /* iOSIntPackage */; };
 		5575AB5F29E7E03C00F2D026 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5575AB5E29E7E03C00F2D026 /* User.swift */; };
 		55C9E39929F809770000420D /* LoginFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C9E39829F809770000420D /* LoginFactory.swift */; };
+		55DAE9702A0BF31400D366F9 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DAE96F2A0BF31400D366F9 /* AppCoordinator.swift */; };
+		55DAE9722A0BF35900D366F9 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DAE9712A0BF35900D366F9 /* Coordinator.swift */; };
+		55DAE9742A0BF3AC00D366F9 /* LoginCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DAE9732A0BF3AC00D366F9 /* LoginCoordinator.swift */; };
+		55DAE9762A0BF42600D366F9 /* FeedCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DAE9752A0BF42600D366F9 /* FeedCoordinator.swift */; };
+		55DAE99B2A0E553B00D366F9 /* ProfileCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DAE99A2A0E553B00D366F9 /* ProfileCoordinator.swift */; };
 		55FDB6F929F7AE2500F425F6 /* Checker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55FDB6F829F7AE2500F425F6 /* Checker.swift */; };
 		55FDB6FC29F7B6F800F425F6 /* LoginInspector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55FDB6FB29F7B6F800F425F6 /* LoginInspector.swift */; };
 /* End PBXBuildFile section */
@@ -114,6 +119,11 @@
 		555C0B1D2A03B5E600AE99CD /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		5575AB5E29E7E03C00F2D026 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		55C9E39829F809770000420D /* LoginFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginFactory.swift; sourceTree = "<group>"; };
+		55DAE96F2A0BF31400D366F9 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
+		55DAE9712A0BF35900D366F9 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
+		55DAE9732A0BF3AC00D366F9 /* LoginCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginCoordinator.swift; sourceTree = "<group>"; };
+		55DAE9752A0BF42600D366F9 /* FeedCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCoordinator.swift; sourceTree = "<group>"; };
+		55DAE99A2A0E553B00D366F9 /* ProfileCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCoordinator.swift; sourceTree = "<group>"; };
 		55FDB6F829F7AE2500F425F6 /* Checker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Checker.swift; sourceTree = "<group>"; };
 		55FDB6FB29F7B6F800F425F6 /* LoginInspector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginInspector.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -205,6 +215,7 @@
 		44DD6EB6299F6A16009624B6 /* Navigation */ = {
 			isa = PBXGroup;
 			children = (
+				55DAE96E2A0BF2B600D366F9 /* Coordinators */,
 				55C9E39729F8095A0000420D /* LoginFactory */,
 				55FDB6FA29F7B6CC00F425F6 /* Checker */,
 				4439395929CCA17000E8F712 /* Cells */,
@@ -247,6 +258,18 @@
 				55C9E39829F809770000420D /* LoginFactory.swift */,
 			);
 			path = LoginFactory;
+			sourceTree = "<group>";
+		};
+		55DAE96E2A0BF2B600D366F9 /* Coordinators */ = {
+			isa = PBXGroup;
+			children = (
+				55DAE96F2A0BF31400D366F9 /* AppCoordinator.swift */,
+				55DAE9712A0BF35900D366F9 /* Coordinator.swift */,
+				55DAE9732A0BF3AC00D366F9 /* LoginCoordinator.swift */,
+				55DAE9752A0BF42600D366F9 /* FeedCoordinator.swift */,
+				55DAE99A2A0E553B00D366F9 /* ProfileCoordinator.swift */,
+			);
+			path = Coordinators;
 			sourceTree = "<group>";
 		};
 		55FDB6FA29F7B6CC00F425F6 /* Checker */ = {
@@ -409,10 +432,13 @@
 			files = (
 				55FDB6FC29F7B6F800F425F6 /* LoginInspector.swift in Sources */,
 				4439395729CC88C400E8F712 /* PhotosTableViewCell.swift in Sources */,
+				55DAE9722A0BF35900D366F9 /* Coordinator.swift in Sources */,
+				55DAE9702A0BF31400D366F9 /* AppCoordinator.swift in Sources */,
 				55FDB6F929F7AE2500F425F6 /* Checker.swift in Sources */,
 				44D1D486299F960600D1BDC0 /* PostViewController.swift in Sources */,
 				555C0B1A2A0295A800AE99CD /* FeedModel.swift in Sources */,
 				44DD6EBC299F6A16009624B6 /* ViewController.swift in Sources */,
+				55DAE99B2A0E553B00D366F9 /* ProfileCoordinator.swift in Sources */,
 				555C0B1E2A03B5E600AE99CD /* ProfileViewModel.swift in Sources */,
 				446B26C529ACDEDA0089C298 /* ProfileViewController.swift in Sources */,
 				44DD6EB8299F6A16009624B6 /* AppDelegate.swift in Sources */,
@@ -421,6 +447,7 @@
 				447879F529C2008A00C75FE2 /* CustomButtom.swift in Sources */,
 				446B26C329ACDE800089C298 /* ProfileHeaderView.swift in Sources */,
 				447D035029CDCDA10059D49D /* PhotosViewController.swift in Sources */,
+				55DAE9742A0BF3AC00D366F9 /* LoginCoordinator.swift in Sources */,
 				441A58B529C4957900909230 /* PostTableViewCell.swift in Sources */,
 				44D1D482299F8F8C00D1BDC0 /* FeedViewController.swift in Sources */,
 				55C9E39929F809770000420D /* LoginFactory.swift in Sources */,
@@ -428,6 +455,7 @@
 				447879F729C2065700C75FE2 /* CustomTextField.swift in Sources */,
 				44DD6EBA299F6A16009624B6 /* SceneDelegate.swift in Sources */,
 				441992B629B9C09C00A4C3CE /* LogInViewController.swift in Sources */,
+				55DAE9762A0BF42600D366F9 /* FeedCoordinator.swift in Sources */,
 				447D035229CDE9C90059D49D /* PhotosCollectionViewCell.swift in Sources */,
 				44D1D48A299FB95500D1BDC0 /* Model.swift in Sources */,
 				5575AB5F29E7E03C00F2D026 /* User.swift in Sources */,
