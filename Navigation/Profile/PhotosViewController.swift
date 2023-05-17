@@ -88,27 +88,21 @@ class PhotosViewController: UIViewController {
     }
     
     private func processImagesOnThread() {
-        DispatchQueue.global(qos: .utility).sync {
-            let startTime = Date().timeIntervalSince1970
+        let startTime = Date().timeIntervalSince1970
+        
+        self.imageProcessor.processImagesOnThread(sourceImages: self.photos, filter: .chrome, qos: .background)
+        { images in
+            self.photos = images
+                .compactMap { $0 }
+                .map { UIImage(cgImage: $0) }
             
-            self.imageProcessor.processImagesOnThread(sourceImages: self.photos,
-                                                 filter: .chrome,
-                                                      qos: .background,
-                                                 completion: {images in
-                
-                DispatchQueue.main.sync {
-                    
-                    self.photos = images.map {
-                        guard let cgImage = $0 else {fatalError("something went wrong while getting images")}
-                        return UIImage(cgImage: cgImage)
-                    }
-                    self.collectionView.reloadSections(IndexSet(integer: 0))
-                    let endTime = Date().timeIntervalSince1970
-                    let elapsedTime = endTime - startTime
-                    print(elapsedTime)
-                }
-                
-            })
+            DispatchQueue.main.async {
+                self.collectionView.reloadData()
+            }
+            
+            let endTime = Date().timeIntervalSince1970
+            let elapsedTime = endTime - startTime
+            print(elapsedTime)
         }
     }
 }
