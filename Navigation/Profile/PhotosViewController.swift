@@ -11,10 +11,13 @@ import iOSIntPackage
 class PhotosViewController: UIViewController {
     
     // photos - массив моделей фотографий
-    fileprivate var photos = PhotoModel.make()
+    fileprivate var photos: [UIImage] = PhotoModel.make()
     
-    // Создайте для PhotosViewController экземпляр класса ImagePublisherFacade
-    private let imagePublisherFacade = ImagePublisherFacade()
+    /*    // Создайте для PhotosViewController экземпляр класса ImagePublisherFacade
+     private let imagePublisherFacade = ImagePublisherFacade()
+     */
+    //
+    private let imageProcessor = ImageProcessor()
     
     // cellIdentifire - идентификатор ячейки коллекции
     let cellIdentifire = "photoCellIdentifire"
@@ -48,10 +51,10 @@ class PhotosViewController: UIViewController {
         
         return collectionView
     }()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         view.addSubview(collectionView)
         // установка видимости навигационной панели
         navigationController?.navigationBar.isHidden = false
@@ -60,13 +63,15 @@ class PhotosViewController: UIViewController {
         titleLabel.text = "Photo Gallery"
         titleLabel.textAlignment = .center
         titleLabel.font = UIFont.boldSystemFont(ofSize: 18)
-
+        
         navigationItem.titleView = titleLabel
         
-        // Подписываемся на обновления изображений, чтобы обновлять нашу коллекцию
-        imagePublisherFacade.subscribe(self)
-        imagePublisherFacade.addImagesWithTimer(time: 0.5, repeat: photos.count, userImages: photos)
-    
+        /*       // Подписываемся на обновления изображений, чтобы обновлять нашу коллекцию
+         imagePublisherFacade.subscribe(self)
+         imagePublisherFacade.addImagesWithTimer(time: 0.5, repeat: photos.count, userImages: photos)
+         */
+        processImagesOnThread()
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -77,10 +82,36 @@ class PhotosViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         navigationController?.setNavigationBarHidden(true, animated: true)
-        imagePublisherFacade.rechargeImageLibrary()
-        imagePublisherFacade.removeSubscription(for: self)
+        /*        imagePublisherFacade.rechargeImageLibrary()
+         imagePublisherFacade.removeSubscription(for: self)
+         */
+    }
+    
+    private func processImagesOnThread() {
+        let startTime = Date().timeIntervalSince1970
+        
+        self.imageProcessor.processImagesOnThread(sourceImages: self.photos, filter: .chrome, qos: .background)
+        { images in
+            self.photos = images
+                .compactMap { $0 }
+                .map { UIImage(cgImage: $0) }
+            
+            DispatchQueue.main.async {
+                self.collectionView.reloadData()
+            }
+            
+            let endTime = Date().timeIntervalSince1970
+            let elapsedTime = endTime - startTime
+            print(elapsedTime)
+        }
     }
 }
+//    3.377690076828003 qos: .default
+//    3.329916000366211 qos: .background
+//    2.9145679473876953 qos: .userInitiated
+//    3.0211479663848877 qos: .userInteractive
+//    3.2839410305023193 qos: .utility
+
 
 extension PhotosViewController: UICollectionViewDataSource {
     // numberOfItemsInSection - метод, возвращающий количество элементов в коллекции
@@ -104,10 +135,11 @@ extension PhotosViewController: UICollectionViewDelegateFlowLayout {
     }
 }
 
-extension PhotosViewController: ImageLibrarySubscriber {
+/*extension PhotosViewController: ImageLibrarySubscriber {
     func receive(images: [UIImage]) {
         self.photos = images
         // Обновляем коллекцию с новыми фотографиями
         self.collectionView.reloadData()
     }
 }
+*/
