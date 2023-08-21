@@ -13,8 +13,62 @@ enum AppConfiguration {
     case planets(String)
 }
 
+enum NetworkError: Error {
+    case statusCodeNot200
+    case dataIsNil
+    case answerNotCast
+    case keyNotFound
+    
+}
 
 struct NetworkService {
+    
+    static func downloadTitle(completion: @escaping (Result<String, Error>) -> Void ) {
+        let url = URL(string: "https://jsonplaceholder.typicode.com/todos/1")!
+        
+        let session = URLSession(configuration: .default)
+        let dataTask = session.dataTask(with: url) { data, response, error in
+            if let error {
+                print(error.localizedDescription)
+                completion(.failure(error))
+                return
+            }
+            
+            if (response as? HTTPURLResponse)?.statusCode != 200 {
+                print("StatusCode != 200")
+                completion(.failure(NetworkError.statusCodeNot200))
+                return
+            }
+            
+            guard let data else {
+                print("Data is nil")
+                completion(.failure(NetworkError.dataIsNil))
+                return
+            }
+            
+            do {
+                guard let answer = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] else {
+                    print("answer not cast to [String: Any]")
+                    completion(.failure(NetworkError.answerNotCast))
+                    return
+                }
+                
+                guard let title = answer["title"] as? String else {
+                    print("Key title not found")
+                    completion(.failure(NetworkError.keyNotFound))
+                    return
+                }
+                completion(.success(title))
+                
+            } catch {
+                print(error)
+                completion(.failure(error))
+            }
+        }
+        
+        dataTask.resume()
+    }
+    
     static func request(for configuration: AppConfiguration) {
         switch configuration {
         case .people(let url),

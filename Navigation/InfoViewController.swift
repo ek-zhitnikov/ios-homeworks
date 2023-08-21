@@ -8,40 +8,69 @@
 import UIKit
 
 class InfoViewController: UIViewController {
+    
+    private let titleLabel: UILabel = {
+        let view = UILabel()
+        view.text = "..."
+        view.textAlignment = .center
+        view.numberOfLines = 0
+        view.lineBreakMode = .byWordWrapping
+        view.textColor = .black
+        view.font = UIFont.systemFont(ofSize: 14, weight: .regular)
+        return view
+    }()
+    
+    private let showAlertButton: UIButton = {
+        let view = UIButton(type: .system)
+        view.setTitle("Show message", for: .normal)
+        view.addTarget(self, action: #selector(showAlert), for: .touchUpInside)
+        return view
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
+        getTitle()
+
+    }
+    
+    private func getTitle() {
+        NetworkService.downloadTitle { [weak self] result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let titleText):
+                    self?.titleLabel.text = titleText
+                    self?.titleLabel.textColor = .black
+                    
+                case .failure(let error):
+                    print(error.localizedDescription)
+                    self?.titleLabel.text = "ошибка"
+                    self?.titleLabel.textColor = .red
+                }
+            }
+        }
     }
     
     private func setupView() {
-        setTitle()
-        setBackgroundColor()
-        addButton()
-    }
-    
-    private func setTitle() {
         title = "Info"
-    }
-    
-    private func setBackgroundColor() {
         view.backgroundColor = .systemOrange
-    }
-    
-    private func addButton() {
-        let showAlertButton = UIButton(type: .system)
-        showAlertButton.setTitle("Show message", for: .normal)
-        showAlertButton.addTarget(self, action: #selector(showAlert), for: .touchUpInside)
         view.addSubview(showAlertButton)
-        addConstraints(to: showAlertButton)
+        view.addSubview(titleLabel)
+        addConstraints()
     }
     
-    private func addConstraints(to button: UIButton) {
-        button.translatesAutoresizingMaskIntoConstraints = false
+    private func addConstraints() {
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        showAlertButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            button.widthAnchor.constraint(equalToConstant: 200),
-            button.heightAnchor.constraint(equalToConstant: 50),
-            button.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            button.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+            showAlertButton.widthAnchor.constraint(equalToConstant: 200),
+            showAlertButton.heightAnchor.constraint(equalToConstant: 50),
+            showAlertButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            showAlertButton.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            
+            titleLabel.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor),
+            titleLabel.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor),
+            titleLabel.bottomAnchor.constraint(equalTo: showAlertButton.topAnchor, constant: -50)
         ])
     }
     
