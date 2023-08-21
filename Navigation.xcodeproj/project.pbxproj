@@ -34,6 +34,7 @@
 		44F590F029DD92DE008DED9A /* StorageService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44F590DB29DD92DD008DED9A /* StorageService.framework */; };
 		44F590F129DD92DE008DED9A /* StorageService.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 44F590DB29DD92DD008DED9A /* StorageService.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		44F590F929DD95EA008DED9A /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441A58B229C4539200909230 /* Post.swift */; };
+		551321972A8F877300C12765 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551321962A8F877300C12765 /* NetworkService.swift */; };
 		555C0B1A2A0295A800AE99CD /* FeedModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555C0B192A0295A800AE99CD /* FeedModel.swift */; };
 		555C0B1E2A03B5E600AE99CD /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555C0B1D2A03B5E600AE99CD /* ProfileViewModel.swift */; };
 		55635CB82A010A4200A0AC8C /* iOSIntPackage in Frameworks */ = {isa = PBXBuildFile; productRef = 55635CB72A010A4200A0AC8C /* iOSIntPackage */; };
@@ -115,6 +116,7 @@
 		44F590DE29DD92DD008DED9A /* StorageService.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = StorageService.docc; sourceTree = "<group>"; };
 		44F590E429DD92DE008DED9A /* StorageServiceTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StorageServiceTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		44F590EB29DD92DE008DED9A /* StorageServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageServiceTests.swift; sourceTree = "<group>"; };
+		551321962A8F877300C12765 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		555C0B192A0295A800AE99CD /* FeedModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedModel.swift; sourceTree = "<group>"; };
 		555C0B1D2A03B5E600AE99CD /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		5575AB5E29E7E03C00F2D026 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -215,6 +217,7 @@
 		44DD6EB6299F6A16009624B6 /* Navigation */ = {
 			isa = PBXGroup;
 			children = (
+				551321952A8F874400C12765 /* Network */,
 				55DAE96E2A0BF2B600D366F9 /* Coordinators */,
 				55C9E39729F8095A0000420D /* LoginFactory */,
 				55FDB6FA29F7B6CC00F425F6 /* Checker */,
@@ -250,6 +253,14 @@
 				44F590EB29DD92DE008DED9A /* StorageServiceTests.swift */,
 			);
 			path = StorageServiceTests;
+			sourceTree = "<group>";
+		};
+		551321952A8F874400C12765 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				551321962A8F877300C12765 /* NetworkService.swift */,
+			);
+			path = Network;
 			sourceTree = "<group>";
 		};
 		55C9E39729F8095A0000420D /* LoginFactory */ = {
@@ -440,6 +451,7 @@
 				44DD6EBC299F6A16009624B6 /* ViewController.swift in Sources */,
 				55DAE99B2A0E553B00D366F9 /* ProfileCoordinator.swift in Sources */,
 				555C0B1E2A03B5E600AE99CD /* ProfileViewModel.swift in Sources */,
+				551321972A8F877300C12765 /* NetworkService.swift in Sources */,
 				446B26C529ACDEDA0089C298 /* ProfileViewController.swift in Sources */,
 				44DD6EB8299F6A16009624B6 /* AppDelegate.swift in Sources */,
 				447D034E29CD7A150059D49D /* PhotoCell.swift in Sources */,

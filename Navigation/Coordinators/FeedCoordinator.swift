@@ -32,9 +32,8 @@ class FeedCoordinator: Coordinator {
     }
     
     func showPost() {
-        let secondPost = FirstPost(title: "PostViewController")
-        let postVC = PostViewController()
-        postVC.post = secondPost
+        let secondPost = FirstPost(title: "Заголовочек")
+        let postVC = PostViewController(post: secondPost)
         navigationController.pushViewController(postVC, animated: true)
     }
 }
