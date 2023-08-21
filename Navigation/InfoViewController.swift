@@ -20,6 +20,17 @@ class InfoViewController: UIViewController {
         return view
     }()
     
+    private let orbitalPeriodLabel: UILabel = {
+        let view = UILabel()
+        view.text = "..."
+        view.textAlignment = .center
+        view.numberOfLines = 0
+        view.lineBreakMode = .byWordWrapping
+        view.textColor = .black
+        view.font = UIFont.systemFont(ofSize: 14, weight: .regular)
+        return view
+    }()
+    
     private let showAlertButton: UIButton = {
         let view = UIButton(type: .system)
         view.setTitle("Show message", for: .normal)
@@ -31,7 +42,37 @@ class InfoViewController: UIViewController {
         super.viewDidLoad()
         setupView()
         getTitle()
-
+        getOrbitalPeriod()
+    }
+    
+    private func setupView() {
+        title = "Info"
+        view.backgroundColor = .systemOrange
+        view.addSubview(showAlertButton)
+        view.addSubview(titleLabel)
+        view.addSubview(orbitalPeriodLabel)
+        addConstraints()
+    }
+    
+    private func addConstraints() {
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        showAlertButton.translatesAutoresizingMaskIntoConstraints = false
+        orbitalPeriodLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            showAlertButton.widthAnchor.constraint(equalToConstant: 200),
+            showAlertButton.heightAnchor.constraint(equalToConstant: 50),
+            showAlertButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            showAlertButton.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            
+            titleLabel.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor),
+            titleLabel.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor),
+            titleLabel.bottomAnchor.constraint(equalTo: showAlertButton.topAnchor, constant: -50),
+            
+            orbitalPeriodLabel.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor),
+            orbitalPeriodLabel.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor),
+            orbitalPeriodLabel.topAnchor.constraint(equalTo: showAlertButton.bottomAnchor, constant: 50)
+        ])
     }
     
     private func getTitle() {
@@ -51,27 +92,21 @@ class InfoViewController: UIViewController {
         }
     }
     
-    private func setupView() {
-        title = "Info"
-        view.backgroundColor = .systemOrange
-        view.addSubview(showAlertButton)
-        view.addSubview(titleLabel)
-        addConstraints()
-    }
-    
-    private func addConstraints() {
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        showAlertButton.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            showAlertButton.widthAnchor.constraint(equalToConstant: 200),
-            showAlertButton.heightAnchor.constraint(equalToConstant: 50),
-            showAlertButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            showAlertButton.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            
-            titleLabel.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor),
-            titleLabel.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor),
-            titleLabel.bottomAnchor.constraint(equalTo: showAlertButton.topAnchor, constant: -50)
-        ])
+    private func getOrbitalPeriod() {
+        NetworkService.downloadOrbitalPeriod { [weak self] result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let orbitalPeriod):
+                    self?.orbitalPeriodLabel.text = "Tatuin orbital period \(orbitalPeriod) days"
+                    self?.orbitalPeriodLabel.textColor = .black
+                    
+                case .failure(let error):
+                    print(error.localizedDescription)
+                    self?.orbitalPeriodLabel.text = "ошибка"
+                    self?.orbitalPeriodLabel.textColor = .red
+                }
+            }
+        }
     }
     
     @objc private func showAlert(_ sender: UIAlertController) {
