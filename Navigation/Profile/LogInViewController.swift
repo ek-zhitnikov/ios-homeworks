@@ -8,9 +8,6 @@
 import UIKit
 
 //Создайте новый протокол LoginViewControllerDelegate, для него пропишите один метод check, который будет использовать созданный Checker
-protocol LoginViewControllerDelegate {
-    func check(login: String, password: String) -> Bool
-}
 
 class LogInViewController: UIViewController {
     weak var coordinator: LoginCoordinator?
@@ -118,8 +115,8 @@ class LogInViewController: UIViewController {
         
         #if DEBUG
         userService = TestUserService()
-        loginField.text = "test_login"
-        passwordField.text = "aaa"
+        loginField.text = "test@test.com"
+        passwordField.text = "123456"
         #else
         // Инициализируем userService с помощью CurrentUserService
         let currentUser = User(
@@ -252,29 +249,21 @@ class LogInViewController: UIViewController {
             return
         }
         
-        checkerService.checkCredentials(email: login, password: password) { result in
+        loginDelegate?.checkCredentials(email: login, password: password, completion: { result in
             switch result {
             case .failure(let error):
-                let errorMappings: [String: String] = [
-                    "The email address is badly formatted.": "Адрес электронной почты имеет неправильный формат.",
-                    "There is no user record corresponding to this identifier. The user may have been deleted.": "Пользователя с таким Email не существует. Возможно, пользователь был удален. Пройдите регистрацию!",
-                    "The password is invalid or the user does not have a password.": "Введенный пароль недействительный",
-                    "The email address is already in use by another account.": "Адрес электронной почты уже используется другой учетной записью",
-                    "The password must be 6 characters long or more.": "Пароль должен иметь длину не менее 6 символов."
-                ]
-
-                if let errorMessage = errorMappings[error.localizedDescription] {
+                if let errorMessage = self.errorMappings[error.localizedDescription] {
                     self.showAlert(alert: errorMessage)
                 }
-                
             case .success(let currentUser):
-                // Получаем информацию о пользователе, введенном в loginField
-                let user = self.userService?.getUser(byLogin: currentUser.user.email!) // Используем userService
-
-                // Создаем ProfileViewController и передаем ему информацию о пользователе
-                self.coordinator?.showProfile(user!)
+                if currentUser.user.email == "test@test.com" {
+                    let user = self.userService?.getUser(byLogin: currentUser.user.email!)
+                    self.coordinator?.showProfile(user!)
+                } else {
+                    self.showAlert(alert: "В тестовом режиме возможен вход только test@test.com")
+                }
             }
-        }
+        })
     }
     
     private func singUpProfile() {
@@ -282,19 +271,10 @@ class LogInViewController: UIViewController {
             showAlert(alert: "Поля логин и пароль не должны быть пустыми")
             return
         }
-        checkerService.signUp(email: login, password: password) { result in
+        loginDelegate?.signUp(email: login, password: password) { result in
             switch result {
             case.failure(let error):
-                print(error.localizedDescription)
-                let errorMappings: [String: String] = [
-                    "The email address is badly formatted.": "Адрес электронной почты имеет неправильный формат.",
-                    "There is no user record corresponding to this identifier. The user may have been deleted.": "Пользователя с таким Email не существует. Возможно, пользователь был удален. Пройдите регистрацию!",
-                    "The password is invalid or the user does not have a password.": "Введенный пароль недействительный",
-                    "The email address is already in use by another account.": "Адрес электронной почты уже используется другой учетной записью",
-                    "The password must be 6 characters long or more.": "Пароль должен иметь длину не менее 6 символов."
-                ]
-
-                if let errorMessage = errorMappings[error.localizedDescription] {
+                if let errorMessage = self.errorMappings[error.localizedDescription] {
                     self.showAlert(alert: errorMessage)
                 }
             case .success:
@@ -302,6 +282,14 @@ class LogInViewController: UIViewController {
             }
         }
     }
+    
+    let errorMappings: [String: String] = [
+        "The email address is badly formatted.": "Адрес электронной почты имеет неправильный формат.",
+        "There is no user record corresponding to this identifier. The user may have been deleted.": "Пользователя с таким Email не существует. Возможно, пользователь был удален. Пройдите регистрацию!",
+        "The password is invalid or the user does not have a password.": "Введенный пароль недействительный",
+        "The email address is already in use by another account.": "Адрес электронной почты уже используется другой учетной записью",
+        "The password must be 6 characters long or more.": "Пароль должен иметь длину не менее 6 символов."
+    ]
     
     private func showAlert(alert: String) {
         let alert = UIAlertController(title: "Ошибка", message: alert, preferredStyle: .alert)
