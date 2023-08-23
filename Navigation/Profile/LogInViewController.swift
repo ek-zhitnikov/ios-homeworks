@@ -20,6 +20,8 @@ class LogInViewController: UIViewController {
 
     private var userService: UserService? // Добавляем свойство для UserService
     
+    let checkerService = CheckerService()
+    
     private lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.backgroundColor = .white
@@ -51,7 +53,7 @@ class LogInViewController: UIViewController {
         let view = CustomTextField()
         view.textColor = .black
         view.font = UIFont.systemFont(ofSize: 16, weight: .regular)
-        view.placeholder = "Email or phone"
+        view.placeholder = "Email"
         view.autocapitalizationType = .none
         view.returnKeyType = .done
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -229,24 +231,39 @@ class LogInViewController: UIViewController {
     }
     
     private func pushToProfile() {
-        //Реализуйте в LoginViewController проверку логина и пароля, введённого пользователем с помощью loginDelegate
-        guard let login = loginField.text, let password = passwordField.text else { return }
 
-        let isValid = loginDelegate?.check(login: login, password: password) ?? false
-
-        if isValid {
-            // Правильный ввод логина и пароля
-            // Получаем информацию о пользователе, введенном в loginField
-            let user = userService?.getUser(byLogin: login) // Используем userService
-
-            // Создаем ProfileViewController и передаем ему информацию о пользователе
-            coordinator?.showProfile(user!)
-        } else {
-            // Неверный ввод логина и пароля
-            let alert = UIAlertController(title: "Ошибка", message: "Неправильный логин или пароль", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-            present(alert, animated: true, completion: nil)
+        guard let login = loginField.text, !login.isEmpty, let password = passwordField.text, !password.isEmpty else {
+            showAlert(alert: "Поля логин и пароль не должны быть пустыми")
+            return
         }
+        
+        checkerService.checkCredentials(email: login, password: password) { result in
+            switch result {
+            case .failure(let error):
+                let errorMappings: [String: String] = [
+                    "The email address is badly formatted.": "Адрес электронной почты имеет неправильный формат.",
+                    "There is no user record corresponding to this identifier. The user may have been deleted.": "Пользователя с таким Email не существует. Возможно, пользователь был удален. Пройдите регистрацию!",
+                    "The password is invalid or the user does not have a password.": "Введенный пароль недействительный"
+                ]
+
+                if let errorMessage = errorMappings[error.localizedDescription] {
+                    self.showAlert(alert: errorMessage)
+                }
+                
+            case .success(let currentUser):
+                // Получаем информацию о пользователе, введенном в loginField
+                let user = self.userService?.getUser(byLogin: currentUser.user.email!) // Используем userService
+
+                // Создаем ProfileViewController и передаем ему информацию о пользователе
+                self.coordinator?.showProfile(user!)
+            }
+        }
+    }
+    
+    private func showAlert(alert: String) {
+        let alert = UIAlertController(title: "Ошибка", message: alert, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        present(alert, animated: true, completion: nil)
     }
 }
 

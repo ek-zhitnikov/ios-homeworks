@@ -34,7 +34,7 @@ class InfoViewController: UIViewController {
     private let showAlertButton: UIButton = {
         let view = UIButton(type: .system)
         view.setTitle("Show message", for: .normal)
-        view.addTarget(self, action: #selector(showAlert), for: .touchUpInside)
+        view.addTarget(     self, action: #selector(showAlert), for: .touchUpInside)
         return view
     }()
     
