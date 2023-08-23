@@ -39,6 +39,7 @@
 		553087A82A95FFF100A46DB7 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 553087A72A95FFF100A46DB7 /* FirebaseAuth */; };
 		553087AA2A95FFF100A46DB7 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 553087A92A95FFF100A46DB7 /* FirebaseFirestore */; };
 		553087AC2A95FFF100A46DB7 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 553087AB2A95FFF100A46DB7 /* FirebaseFirestoreSwift */; };
+		553087AE2A9601B200A46DB7 /* CheckerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553087AD2A9601B200A46DB7 /* CheckerService.swift */; };
 		555C0B1A2A0295A800AE99CD /* FeedModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555C0B192A0295A800AE99CD /* FeedModel.swift */; };
 		555C0B1E2A03B5E600AE99CD /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555C0B1D2A03B5E600AE99CD /* ProfileViewModel.swift */; };
 		55635CB82A010A4200A0AC8C /* iOSIntPackage in Frameworks */ = {isa = PBXBuildFile; productRef = 55635CB72A010A4200A0AC8C /* iOSIntPackage */; };
@@ -122,6 +123,7 @@
 		44F590EB29DD92DE008DED9A /* StorageServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageServiceTests.swift; sourceTree = "<group>"; };
 		551321962A8F877300C12765 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		553087A42A95FE5800A46DB7 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		553087AD2A9601B200A46DB7 /* CheckerService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckerService.swift; sourceTree = "<group>"; };
 		555C0B192A0295A800AE99CD /* FeedModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedModel.swift; sourceTree = "<group>"; };
 		555C0B1D2A03B5E600AE99CD /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		5575AB5E29E7E03C00F2D026 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -297,6 +299,7 @@
 			children = (
 				55FDB6F829F7AE2500F425F6 /* Checker.swift */,
 				55FDB6FB29F7B6F800F425F6 /* LoginInspector.swift */,
+				553087AD2A9601B200A46DB7 /* CheckerService.swift */,
 			);
 			path = Checker;
 			sourceTree = "<group>";
@@ -477,6 +480,7 @@
 				441A58B529C4957900909230 /* PostTableViewCell.swift in Sources */,
 				44D1D482299F8F8C00D1BDC0 /* FeedViewController.swift in Sources */,
 				55C9E39929F809770000420D /* LoginFactory.swift in Sources */,
+				553087AE2A9601B200A46DB7 /* CheckerService.swift in Sources */,
 				4439395B29CCA1B300E8F712 /* PhotosModel.swift in Sources */,
 				447879F729C2065700C75FE2 /* CustomTextField.swift in Sources */,
 				44DD6EBA299F6A16009624B6 /* SceneDelegate.swift in Sources */,
