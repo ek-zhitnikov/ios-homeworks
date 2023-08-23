@@ -96,7 +96,13 @@ class LogInViewController: UIViewController {
     }()
     
     private lazy var loginButton: CustomButton = {
-        let view = CustomButton(title: "LogIn", color: UIColor(named: "ColorSet"))
+        let view = CustomButton(title: "Log In", color: UIColor(named: "ColorSet"))
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    private lazy var singUpButton: CustomButton = {
+        let view = CustomButton(title: "Sing Up", color: UIColor(named: "ColorSet"))
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -142,6 +148,9 @@ class LogInViewController: UIViewController {
         navigationController?.navigationBar.isHidden = true
         loginButton.buttonAction = {[weak self] in
             self?.pushToProfile()
+        }
+        singUpButton.buttonAction = {[weak self] in
+            self?.singUpProfile()
         }
     }
     
@@ -196,6 +205,7 @@ class LogInViewController: UIViewController {
         contentView.addSubview(logoImage)
         contentView.addSubview(loginView)
         contentView.addSubview(loginButton)
+        contentView.addSubview(singUpButton)
         
         NSLayoutConstraint.activate([
             logoImage.heightAnchor.constraint(equalToConstant: 100),
@@ -211,7 +221,12 @@ class LogInViewController: UIViewController {
             loginButton.heightAnchor.constraint(equalToConstant: 50),
             loginButton.topAnchor.constraint(equalTo: loginView.bottomAnchor, constant: 16),
             loginButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            loginButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16)
+            loginButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+            
+            singUpButton.heightAnchor.constraint(equalToConstant: 50),
+            singUpButton.topAnchor.constraint(equalTo: loginButton.bottomAnchor, constant: 16),
+            singUpButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            singUpButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
         ])
         
     }
@@ -243,7 +258,9 @@ class LogInViewController: UIViewController {
                 let errorMappings: [String: String] = [
                     "The email address is badly formatted.": "Адрес электронной почты имеет неправильный формат.",
                     "There is no user record corresponding to this identifier. The user may have been deleted.": "Пользователя с таким Email не существует. Возможно, пользователь был удален. Пройдите регистрацию!",
-                    "The password is invalid or the user does not have a password.": "Введенный пароль недействительный"
+                    "The password is invalid or the user does not have a password.": "Введенный пароль недействительный",
+                    "The email address is already in use by another account.": "Адрес электронной почты уже используется другой учетной записью",
+                    "The password must be 6 characters long or more.": "Пароль должен иметь длину не менее 6 символов."
                 ]
 
                 if let errorMessage = errorMappings[error.localizedDescription] {
@@ -256,6 +273,32 @@ class LogInViewController: UIViewController {
 
                 // Создаем ProfileViewController и передаем ему информацию о пользователе
                 self.coordinator?.showProfile(user!)
+            }
+        }
+    }
+    
+    private func singUpProfile() {
+        guard let login = loginField.text, !login.isEmpty, let password = passwordField.text, !password.isEmpty else {
+            showAlert(alert: "Поля логин и пароль не должны быть пустыми")
+            return
+        }
+        checkerService.signUp(email: login, password: password) { result in
+            switch result {
+            case.failure(let error):
+                print(error.localizedDescription)
+                let errorMappings: [String: String] = [
+                    "The email address is badly formatted.": "Адрес электронной почты имеет неправильный формат.",
+                    "There is no user record corresponding to this identifier. The user may have been deleted.": "Пользователя с таким Email не существует. Возможно, пользователь был удален. Пройдите регистрацию!",
+                    "The password is invalid or the user does not have a password.": "Введенный пароль недействительный",
+                    "The email address is already in use by another account.": "Адрес электронной почты уже используется другой учетной записью",
+                    "The password must be 6 characters long or more.": "Пароль должен иметь длину не менее 6 символов."
+                ]
+
+                if let errorMessage = errorMappings[error.localizedDescription] {
+                    self.showAlert(alert: errorMessage)
+                }
+            case .success:
+                self.showAlert(alert: "Пользователь успешно зарегистрирован")
             }
         }
     }

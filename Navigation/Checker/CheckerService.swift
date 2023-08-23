@@ -39,7 +39,18 @@ class CheckerService: CheckerServiceProtocol {
     
     func signUp(email: String, password: String, completion: @escaping ((Result<AuthDataResult, Error>) -> Void)) {
         Auth.auth().createUser(withEmail: email, password: password) { authDataResult, error in
-            
+            if let error {
+                completion(.failure(error))
+                return
+            }
+
+            guard let result = authDataResult else {
+                completion(.failure(LoginErrors.authResultIsNil))
+                return
+            }
+
+            completion(.success(result))
+        
         }
     }
     
