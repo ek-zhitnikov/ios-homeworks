@@ -8,9 +8,6 @@
 import UIKit
 
 //Создайте новый протокол LoginViewControllerDelegate, для него пропишите один метод check, который будет использовать созданный Checker
-protocol LoginViewControllerDelegate {
-    func check(login: String, password: String) -> Bool
-}
 
 class LogInViewController: UIViewController {
     weak var coordinator: LoginCoordinator?
@@ -19,6 +16,8 @@ class LogInViewController: UIViewController {
     var loginDelegate: LoginViewControllerDelegate?
 
     private var userService: UserService? // Добавляем свойство для UserService
+    
+    let checkerService = CheckerService()
     
     private lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -51,7 +50,8 @@ class LogInViewController: UIViewController {
         let view = CustomTextField()
         view.textColor = .black
         view.font = UIFont.systemFont(ofSize: 16, weight: .regular)
-        view.placeholder = "Email or phone"
+        view.placeholder = "Email"
+        view.keyboardType = .emailAddress
         view.autocapitalizationType = .none
         view.returnKeyType = .done
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -94,7 +94,13 @@ class LogInViewController: UIViewController {
     }()
     
     private lazy var loginButton: CustomButton = {
-        let view = CustomButton(title: "LogIn", color: UIColor(named: "ColorSet"))
+        let view = CustomButton(title: "Log In", color: UIColor(named: "ColorSet"))
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    private lazy var signUpButton: CustomButton = {
+        let view = CustomButton(title: "Sign Up", color: UIColor(named: "ColorSet"))
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -110,8 +116,8 @@ class LogInViewController: UIViewController {
         
         #if DEBUG
         userService = TestUserService()
-        loginField.text = "test_login"
-        passwordField.text = "aaa"
+        loginField.text = "test@test.com"
+        passwordField.text = "123456"
         #else
         // Инициализируем userService с помощью CurrentUserService
         let currentUser = User(
@@ -140,6 +146,9 @@ class LogInViewController: UIViewController {
         navigationController?.navigationBar.isHidden = true
         loginButton.buttonAction = {[weak self] in
             self?.pushToProfile()
+        }
+        signUpButton.buttonAction = {[weak self] in
+            self?.signUpProfile()
         }
     }
     
@@ -194,6 +203,7 @@ class LogInViewController: UIViewController {
         contentView.addSubview(logoImage)
         contentView.addSubview(loginView)
         contentView.addSubview(loginButton)
+        contentView.addSubview(signUpButton)
         
         NSLayoutConstraint.activate([
             logoImage.heightAnchor.constraint(equalToConstant: 100),
@@ -209,7 +219,12 @@ class LogInViewController: UIViewController {
             loginButton.heightAnchor.constraint(equalToConstant: 50),
             loginButton.topAnchor.constraint(equalTo: loginView.bottomAnchor, constant: 16),
             loginButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            loginButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16)
+            loginButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+            
+            signUpButton.heightAnchor.constraint(equalToConstant: 50),
+            signUpButton.topAnchor.constraint(equalTo: loginButton.bottomAnchor, constant: 16),
+            signUpButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            signUpButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
         ])
         
     }
@@ -229,24 +244,58 @@ class LogInViewController: UIViewController {
     }
     
     private func pushToProfile() {
-        //Реализуйте в LoginViewController проверку логина и пароля, введённого пользователем с помощью loginDelegate
-        guard let login = loginField.text, let password = passwordField.text else { return }
 
-        let isValid = loginDelegate?.check(login: login, password: password) ?? false
-
-        if isValid {
-            // Правильный ввод логина и пароля
-            // Получаем информацию о пользователе, введенном в loginField
-            let user = userService?.getUser(byLogin: login) // Используем userService
-
-            // Создаем ProfileViewController и передаем ему информацию о пользователе
-            coordinator?.showProfile(user!)
-        } else {
-            // Неверный ввод логина и пароля
-            let alert = UIAlertController(title: "Ошибка", message: "Неправильный логин или пароль", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-            present(alert, animated: true, completion: nil)
+        guard let login = loginField.text, !login.isEmpty, let password = passwordField.text, !password.isEmpty else {
+            showAlert(alert: "Поля логин и пароль не должны быть пустыми")
+            return
         }
+        
+        loginDelegate?.checkCredentials(email: login, password: password, completion: { result in
+            switch result {
+            case .failure(let error):
+                if let errorMessage = self.errorMappings[error.localizedDescription] {
+                    self.showAlert(alert: errorMessage)
+                }
+            case .success(let currentUser):
+                if currentUser.user.email == "test@test.com" {
+                    let user = self.userService?.getUser(byLogin: currentUser.user.email!)
+                    self.coordinator?.showProfile(user!)
+                } else {
+                    self.showAlert(alert: "В тестовом режиме возможен вход только test@test.com")
+                }
+            }
+        })
+    }
+    
+    private func signUpProfile() {
+        guard let login = loginField.text, !login.isEmpty, let password = passwordField.text, !password.isEmpty else {
+            showAlert(alert: "Поля логин и пароль не должны быть пустыми")
+            return
+        }
+        loginDelegate?.signUp(email: login, password: password) { result in
+            switch result {
+            case.failure(let error):
+                if let errorMessage = self.errorMappings[error.localizedDescription] {
+                    self.showAlert(alert: errorMessage)
+                }
+            case .success:
+                self.showAlert(alert: "Пользователь успешно зарегистрирован")
+            }
+        }
+    }
+    
+    let errorMappings: [String: String] = [
+        "The email address is badly formatted.": "Адрес электронной почты имеет неправильный формат.",
+        "There is no user record corresponding to this identifier. The user may have been deleted.": "Пользователя с таким Email не существует. Возможно, пользователь был удален. Пройдите регистрацию!",
+        "The password is invalid or the user does not have a password.": "Введенный пароль недействительный",
+        "The email address is already in use by another account.": "Адрес электронной почты уже используется другой учетной записью",
+        "The password must be 6 characters long or more.": "Пароль должен иметь длину не менее 6 символов."
+    ]
+    
+    private func showAlert(alert: String) {
+        let alert = UIAlertController(title: "Ошибка", message: alert, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        present(alert, animated: true, completion: nil)
     }
 }
 

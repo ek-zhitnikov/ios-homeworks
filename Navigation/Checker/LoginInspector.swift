@@ -6,12 +6,24 @@
 //
 
 import Foundation
+import FirebaseAuth
 
-//Создайте новую структуру LoginInspector и подпишите её на протокол LoginViewControllerDelegate; сделайте в ней реализацию метода протокола
+protocol LoginViewControllerDelegate {
+    func checkCredentials (email: String, password: String, completion: @escaping ((Result<AuthDataResult, Error>) -> Void))
+    func signUp (email: String, password: String, completion: @escaping ((Result<AuthDataResult, Error>) -> Void))
+    
+}
+
 struct LoginInspector: LoginViewControllerDelegate {
-    func check(login: String, password: String) -> Bool {
-        let checker = Checker.shared
-        return checker.check(login: login, password: password)
+    func checkCredentials(email: String, password: String, completion: @escaping ((Result<AuthDataResult, Error>) -> Void)) {
+        CheckerService().checkCredentials(email: email, password: password) { result in
+            completion(result)
+        }
     }
     
+    func signUp(email: String, password: String, completion: @escaping ((Result<AuthDataResult, Error>) -> Void)) {
+        CheckerService().signUp(email: email, password: password) { result in
+            completion(result)
+        }
+    }
 }

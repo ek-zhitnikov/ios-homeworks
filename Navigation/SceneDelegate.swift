@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
@@ -20,20 +21,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         coordinator = AppCoordinator(tabBarController: tabBarController)
         coordinator?.start()
-
-//        // Рандомно инициализируем свойство appConfiguration
-//        let configurations: [AppConfiguration] = [
-//            .people("https://swapi.dev/api/people/1"),
-//            .starships("https://swapi.dev/api/starships/3"),
-//            .planets("https://swapi.dev/api/planets/2")
-//        ]
-//
-//       let appConfiguration = configurations.randomElement()!
-//
-//        // Передаем конфигурацию в метод сетевого сервиса
-//        NetworkService.request(for: appConfiguration)
         
         window?.makeKeyAndVisible()
+    }
+    
+    func sceneDidDisconnect(_ scene: UIScene) {
+        let _ = try? Auth.auth().signOut()
     }
 }
 
