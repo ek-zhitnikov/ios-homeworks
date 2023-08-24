@@ -51,6 +51,7 @@ class LogInViewController: UIViewController {
         view.textColor = .black
         view.font = UIFont.systemFont(ofSize: 16, weight: .regular)
         view.placeholder = "Email"
+        view.keyboardType = .emailAddress
         view.autocapitalizationType = .none
         view.returnKeyType = .done
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -98,8 +99,8 @@ class LogInViewController: UIViewController {
         return view
     }()
     
-    private lazy var singUpButton: CustomButton = {
-        let view = CustomButton(title: "Sing Up", color: UIColor(named: "ColorSet"))
+    private lazy var signUpButton: CustomButton = {
+        let view = CustomButton(title: "Sign Up", color: UIColor(named: "ColorSet"))
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -146,8 +147,8 @@ class LogInViewController: UIViewController {
         loginButton.buttonAction = {[weak self] in
             self?.pushToProfile()
         }
-        singUpButton.buttonAction = {[weak self] in
-            self?.singUpProfile()
+        signUpButton.buttonAction = {[weak self] in
+            self?.signUpProfile()
         }
     }
     
@@ -202,7 +203,7 @@ class LogInViewController: UIViewController {
         contentView.addSubview(logoImage)
         contentView.addSubview(loginView)
         contentView.addSubview(loginButton)
-        contentView.addSubview(singUpButton)
+        contentView.addSubview(signUpButton)
         
         NSLayoutConstraint.activate([
             logoImage.heightAnchor.constraint(equalToConstant: 100),
@@ -220,10 +221,10 @@ class LogInViewController: UIViewController {
             loginButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             loginButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
             
-            singUpButton.heightAnchor.constraint(equalToConstant: 50),
-            singUpButton.topAnchor.constraint(equalTo: loginButton.bottomAnchor, constant: 16),
-            singUpButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            singUpButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+            signUpButton.heightAnchor.constraint(equalToConstant: 50),
+            signUpButton.topAnchor.constraint(equalTo: loginButton.bottomAnchor, constant: 16),
+            signUpButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            signUpButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
         ])
         
     }
@@ -266,7 +267,7 @@ class LogInViewController: UIViewController {
         })
     }
     
-    private func singUpProfile() {
+    private func signUpProfile() {
         guard let login = loginField.text, !login.isEmpty, let password = passwordField.text, !password.isEmpty else {
             showAlert(alert: "Поля логин и пароль не должны быть пустыми")
             return
